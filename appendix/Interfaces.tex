@@ -1,0 +1,232 @@
+\chapter{Verwendete Datentypen}
+\label{appendix:types}
+\section{Allgemeine Datentypen}
+\label{appendix:general_types}
+\begin{lstlisting}[language=Typescript]
+interface Dataset {
+    id: number,
+    vehicle_id: number,
+    track_id: number,
+    creation_date: string,
+    extrapolation_target: number,
+    extrapolation_unit: string,
+    import_status: string,
+    messages: {type: string; content: string}[] | null,
+    importer_version: string,
+    importer_timestamp: string,
+    load_database: string,
+    additional?: {
+        statistics: {
+            test_types: string[],
+            drivers: string[],
+            median_lap_time_s: number,
+            median_lap_distance_m: number,
+            nr_laps: number,
+        },
+        profile_ids: number[],
+        track_name: string,
+        vehicle_name: string,
+    }
+}
+
+interface Vehicle {
+    id: number,
+    name: string,
+    vehicle_type: string,
+    measured_weight: number,
+    transmission: string,
+    additional?: {
+        database_info: {
+            singlelabs: boolean,
+            profiles: boolean,
+            probablistic_net: boolean
+        },
+        statistics: {
+            dataset_ids: number[],
+            total_distance: number,
+            nr_laps: number,
+        },
+        vehicle_series: string,
+        vehicle_derivative: string,
+        vehicle_build_state: string
+    }
+}
+
+interface Track {
+    id: number,
+    name: string,
+    full_name?: string,
+    location: {latitude: number; longitude: number},
+    additional?: {
+        statistics: {
+            dataset_ids: number[],
+            total_distance: number,
+            nr_laps: number,
+        }
+    }
+}
+
+interface Cycle {
+    id: number,
+    name: string,
+    tracks: {
+        id: number,
+        cycle_id: number,
+        track_id: number,
+        crossings: number,
+        target_speed_kmh: number
+    }[]
+}
+
+interface ChannelType {
+    id: number,
+    name: string,
+    normalized_name: string,
+    unit: string,
+    group_name: string,
+    is_time_channel: boolean,
+    _color?: string,
+    dataset_ids?: number[]
+}
+
+interface Channel {
+    id: number,
+    lap_id: number,
+    channel_type_id: number,
+    evaluated: boolean,
+    damage: number,
+    min: number,
+    max: number,
+    additional?: {
+        dataset_id: number,
+        lap_name: string,
+        channel_type_name: string,
+        group_name: string,
+        driver: string,
+        test_type: string,
+        distance_m: number,
+        time_s: number,
+        extrapolation_target: number,
+        extrapolation_unit: string,
+        damper_setup: string,
+        position: string,
+    }
+}
+\end{lstlisting}
+\section{Datentypen für die Erstellung der Webseite}
+\label{appendix:dataset_types}
+\begin{lstlisting}[language=Typescript]
+interface DynamicFormValidatorConfig {
+  min?: number;
+  max?: number;
+  required?: boolean;
+  requiredTrue?: boolean;
+  email?: boolean;
+  minLength?: number;
+  maxLength?: number;
+  pattern?: RegExp;
+  nullValidator?: boolean;
+}
+
+interface DynamicFormAdditionalConfig {
+  min?: string;
+  max?: string;
+  step?: string;
+  icon?: string;
+  fileTypes?: string[];
+  fileSize?: number;
+}
+
+interface DynamicDataSelectControls {
+  name: ACTION_TYPE;
+  label: string;
+  value: any | undefined;
+  type:
+    | 'select'
+    | 'select-multiple'
+    | 'select-search'
+    | 'select-search-multiple';
+  disabled?: boolean;
+  hasOutput?: boolean;
+  influences?: ACTION_TYPE[];
+  valid?: boolean;
+  options?: { label: string; value: number | number[] }[];
+  config?: DynamicFormAdditionalConfig;
+  validators: DynamicFormValidatorConfig;
+}
+
+interface DynamicDataSelectData {
+  controls: DynamicDataSelectControls[];
+  warning?: { icon: string; warningText: string; iconColor: string };
+  button?: { label: string; disabled?: boolean; type: 'primary' | 'accent' };
+}
+
+interface NavigationItem {
+  name: string,
+  routerLink: string,
+  isActive: boolean,
+  afterDivider: boolean,
+  userRoles: string[]
+}
+
+enum ACTION_TYPE {
+  VEHICLES_SELECTED = 'VEHICLES_SELECTED',
+  LOCATIONS_SELECTED = 'LOCATIONS_SELECTED',
+  CHANNEL_TYPES_SELECTED = 'CHANNEL_TYPES_SELECTED',
+  CHANNELS_SELECTED = 'CHANNELS_SELECTED',
+  CHANNEL_WITH_COLOR_SELECTED = 'CHANNEL_WITH_COLOR_SELECTED',
+  FILTER_VALUES_SELECTED = 'FILTER_VALUES_SELECTED',
+  SORT_VALUES_SELECTED = 'SORT_VALUES_SELECTED',
+  DATE_RANGE_SELECTED = 'DATE_RANGE_SELECTED',
+  CHANNEL_FOR_TIME_SERIES_SELECTED = 'CHANNEL_FOR_TIME_SERIES_SELECTED',
+  FETCH_MAIN_DATA_SELECTED = 'FETCH_MAIN_DATA_SELECTED',
+  FETCH_TIME_SERIES_DATA_SELECTED = 'FETCH_TIME_SERIES_DATA_SELECTED',
+}
+\end{lstlisting}
+\section{Datentypen für die Erstellung von Graphen}
+\label{appendix:graph_types}
+\begin{lstlisting}[language=Typescript]
+interface Chart {
+    id: number,
+    chart: any[],
+    layout: any
+}
+
+interface FrequencyDistribution {
+    id: number,
+    channel_id: number,
+    levelcrossing_x: number[],
+    levelcrossing_y: number[],
+    rangepair_y: number[],
+    rangepair_damages: number[],
+    rangepair_frequency: number[],
+    color: string
+}
+
+interface ProfileData {
+    profile_id: number,
+    channel_type_id: number,
+    min: number,
+    max: number,
+    damage: number,
+    additional?: {
+        profile_name: string,
+        channel_type_name: string,
+        channel_group_name: string,
+    }
+}
+
+interface TimeSeries {
+    id: number,
+    channel_id: number,
+    damage_evo: number[],
+    evo_time: number[],
+    frequency: number,
+    values: number[],
+    x?: number[],
+    y?: number[],
+    unit: string,
+    lap_name: string,
+    channel_type_name: string
+}
+\end{lstlisting}

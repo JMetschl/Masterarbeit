@@ -1,0 +1,631 @@
+\chapter{Trenderkennung Code}
+\label{appendix:trend-detection-code}
+\begin{lstlisting}[language=Typescript]
+  readonly movingAverageWindow = 50;
+  /**
+   * Get average of array
+   * @param {number[]} values - original signal
+   * @returns {number} average
+   */
+  private average(values: number[]): number {
+    return values.reduce((a, b) => a + b) / values.length;
+  }
+
+  /**
+   * Get value of percentage of height
+   * e.g. 20% of height with markers spanning from height 1 to 100 returns 20
+   * @param {number[]} values - original signal
+   * @param {number} percentage - percentage
+   * @returns {number} percentage value
+   */
+  private getPercentageOfHeight(values: number[], percentage: number): number {
+    const maxValue = Math.max(...values);
+    const minValue = Math.min(...values);
+    return (maxValue - minValue) * (percentage / 100);
+  }
+
+  /**
+   * Get value of percentage of distance between markers
+   * e.g. 20% of distance with 100 markers returns 20
+   * @param {number[]} values - original signal
+   * @param {number} percentage - percentage
+   * @returns {number} percentage value
+   */
+  private getPercentageOfDistanceBetweenMarkers(
+    values: number[],
+    percentage: number
+  ): number {
+    return (percentage * values.length) / 100;
+  }
+
+  /**
+   * Calculates moving average of timeseries signal
+   * @param {number[]} values - originial signal
+   * @param {number} window window of values to be included in the average
+   * @returns {number[]} moving average
+   */
+  caculateMovingAverage(values: number[], window: number): number[] {
+    const fixedWindow = +window.toFixed();
+    const halfWindow = +(fixedWindow / 2).toFixed();
+    const result: any[] = [];
+    //account for half window before
+    for (let i = 0; i < halfWindow; i++) {
+      let sum = 0;
+      for (let j = 0; j <= halfWindow; j++) {
+        sum += values[i + j];
+      }
+      result.push(sum / halfWindow + 1);
+    }
+    const steps = values.length - halfWindow;
+    for (let i = halfWindow; i < steps; i++) {
+      let sum = 0;
+      for (let j = -halfWindow; j <= halfWindow; j++) {
+        sum += values[i + j];
+      }
+      result.push(sum / (fixedWindow + 1));
+    }
+    //account for half window after
+    for (let i = values.length - 1; i > steps - 1; i--) {
+      let sum = 0;
+      for (let j = -halfWindow; j <= 0; j++) {
+        sum += values[i + j];
+      }
+      result.push(sum / halfWindow + 1);
+    }
+    return result;
+  }
+
+ /**
+   * Get indices of all local extreme in a sequence.
+   * @param {number[]} values - original signal
+   * @param {boolean} findMaxima - either filter for maxima or minima
+   * @returns {number[]} indices of local extreme
+   */
+  private findLocalExtreme(values: number[], findMaxima: boolean) {
+    const extreme = [];
+    // iterate through all points and compare direct neighbors
+    for (let i = 0; i < values.length; i++) {
+      if (
+        findMaxima === true &&
+        values[i] > values[i - 1] &&
+        values[i] > values[i + 1]
+      ) {
+        extreme.push(i);
+      } else if (
+        findMaxima === false &&
+        values[i] < values[i - 1] &&
+        values[i] < values[i + 1]
+      ) {
+        extreme.push(i);
+      }
+    }
+    return extreme;
+  }
+\end{lstlisting}
+\section{Aufstiege und Abstiege}\label{appendix:trend-detection-code:aufstiege}
+\begin{lstlisting}[language=Typescript]
+  /**
+   * detect rises in timeseries
+   * @param {number[]} values - original signal
+   * @param {number[]} movingAverage - moving average of original signal
+   * @param {number | undefined} minDistanceRises - user input for min distance
+   * @param {number | undefined} minHeightRises - user input for min height
+   * @returns {{ startingPoint: number; endingPoint: number }[]} start and end indices of rises
+   */
+  detectRisesInData(
+    values: number[],
+    movingAverage: number[],
+    minDistanceRises?: number,
+    minHeightRises?: number
+  ): { startingPoint: number; endingPoint: number }[] {
+    const minDistanceBetweenStartingAndEndpoint =
+      this.getPercentageOfDistanceBetweenMarkers(
+        values,
+        minDistanceRises !== undefined && minDistanceRises !== null
+          ? minDistanceRises
+          : 1
+      );
+    const minHeightBetweenValues = this.getPercentageOfHeight(
+      values,
+      minHeightRises !== undefined && minHeightRises !== null
+        ? minHeightRises
+        : 20
+    );
+    const rises: { startingPoint: number; endingPoint: number }[] = [];
+    let startPoint: number | undefined = undefined;
+    let endPoint: number | undefined = undefined;
+    for (let i = 1; i < movingAverage.length - 1; ++i) {
+      if (
+        movingAverage[i] > movingAverage[i - 1] &&
+        movingAverage[i] < movingAverage[i + 1]
+      ) {
+        continue;
+      } else if (
+        movingAverage[i] <= movingAverage[i - 1] &&
+        movingAverage[i] < movingAverage[i + 1]
+      ) {
+        startPoint = i;
+      } else if (
+        movingAverage[i] > movingAverage[i - 1] &&
+        movingAverage[i] >= movingAverage[i + 1] &&
+        startPoint !== undefined
+      ) {
+        endPoint = i;
+      }
+      if (
+        startPoint !== undefined &&
+        endPoint !== undefined &&
+        values[startPoint] !== undefined &&
+        values[endPoint] !== undefined 
+      ) {
+        if (
+          movingAverage[endPoint] - movingAverage[startPoint] >
+            minHeightBetweenValues ||
+          endPoint - startPoint > minDistanceBetweenStartingAndEndpoint
+        ) {
+          rises.push({
+            startingPoint: startPoint,
+            endingPoint: endPoint,
+          });
+        }
+        startPoint = undefined;
+        endPoint = undefined;
+      }
+    }
+    return rises;
+  }
+
+  /**
+   * detect falls in timeseries
+   * @param {number[]} values - original signal
+   * @param {number[]} movingAverage - moving average of original signal
+   * @param {number | undefined} minDistanceFalls - user input for min distance
+   * @param {number | undefined} minHeightFalls - user input for min height
+   * @returns {{ startingPoint: number; endingPoint: number }[]} start and end indices of falls
+   */
+  detectFallsInData(
+    values: number[],
+    movingAverage: number[],
+    minDistanceFalls?: number,
+    minHeightFalls?: number
+  ): { startingPoint: number; endingPoint: number }[] {
+    const falls: { startingPoint: number; endingPoint: number }[] = [];
+    const minDistanceBetweenStartingAndEndpoint =
+      this.getPercentageOfDistanceBetweenMarkers(
+        values,
+        minDistanceFalls !== undefined && minDistanceFalls !== null
+          ? minDistanceFalls
+          : 1
+      );
+    const minHeightBetweenValues = this.getPercentageOfHeight(
+      values,
+      minHeightFalls !== undefined && minHeightFalls !== null
+        ? minHeightFalls
+        : 20
+    );
+    let startPoint: number | undefined = undefined;
+    let endPoint: number | undefined = undefined;
+    for (let i = 1; i < movingAverage.length - 1; ++i) {
+      if (
+        movingAverage[i] < movingAverage[i - 1] &&
+        movingAverage[i] > movingAverage[i + 1]
+      ) {
+        continue;
+      } else if (
+        movingAverage[i] >= movingAverage[i - 1] &&
+        movingAverage[i] > movingAverage[i + 1]
+      ) {
+        startPoint = i;
+      } else if (
+        movingAverage[i] < movingAverage[i - 1] &&
+        movingAverage[i] <= movingAverage[i + 1] &&
+        startPoint !== undefined
+      ) {
+        endPoint = i;
+      }
+      if (
+        startPoint !== undefined &&
+        endPoint !== undefined &&
+        values[startPoint] !== undefined &&
+        values[endPoint] !== undefined 
+      ) {
+        if (
+          movingAverage[endPoint] - movingAverage[startPoint] >
+            minHeightBetweenValues ||
+          endPoint - startPoint > minDistanceBetweenStartingAndEndpoint
+        ) {
+          falls.push({
+            startingPoint: startPoint,
+            endingPoint: endPoint,
+          });
+        }
+        startPoint = undefined;
+        endPoint = undefined;
+      }
+    }
+    return falls;
+  }
+\end{lstlisting}
+\section{Extremwerte}\label{appendix:trend-detection-code:peaks}
+\begin{lstlisting}[language=Typescript]
+  /**
+   * Combine index and value as pair
+   * @param {number} v - value
+   * @param {number} i - index
+   * @returns decorated array
+   */
+  private decor = (v: number, i: number) => [v, i];
+
+  /**
+   * Remove value from decorated array
+   * @param pair - formed array through decor function
+   * @returns {number} index
+   */
+  private undecor = (pair: number[]) => pair[1];
+
+  /**
+   * Argsort function using DSU
+   * sort function has to be specified for negative values
+   * @param {number[]} arr - input array to sort
+   * @returns {number[]} sorted Array
+   */
+  private argsort = (arr: number[]) =>
+    arr
+      .map(this.decor)
+      .sort((a, b) => a[0] - b[0])
+      .map(this.undecor);
+
+
+  /**
+   * Remove extreme below or above height.
+   * min of values has to be used for negative numbers
+   * @param {number[]} indices - extreme indices
+   * @param {number[]} values - original signal
+   * @param {number} height - minimum or maximum extreme height
+   * @param {boolean} findMaxima - either filter for maxima or minima
+   * @returns {number[]} filtered extreme index list
+   */
+  private filterByHeight(
+    indices: number[],
+    values: number[],
+    height: number,
+    findMaxima: boolean
+  ): number[] {
+    const min = Math.min(...values);
+    return indices.filter((i) => {
+      return findMaxima === true
+        ? values[i] > min + height
+        : values[i] < min + height;
+    });
+  }
+
+  /**
+   * Remove extremes that are too close to higher/lower ones.
+   * @param {number[]} indices - extreme indices
+   * @param {number[]} values - original signal
+   * @param {number} distance - minimum distance between peaks
+   * @param {boolean} findMaxima - either filter for maxima or minima
+   * @returns {number[]} filtered extreme indices
+   */
+  private filterByDistance(
+    indices: number[],
+    values: number[],
+    distance: number,
+    findMaxima: boolean
+  ) {
+    const toRemove = Array(indices.length).fill(false);
+    const heights = indices.map((i) => values[i]);
+    const sortedIndexPositions =
+      findMaxima === true
+        ? this.argsort(heights).reverse()
+        : this.argsort(heights);
+
+    // adapted from SciPy find_peaks
+    for (const current of sortedIndexPositions) {
+      if (toRemove[current] === true) {
+        continue; // peak will already be removed, move on.
+      }
+      let neighbor = current - 1; // check on left side of peak
+      while (neighbor >= 0 && indices[current] - indices[neighbor] < distance) {
+        toRemove[neighbor] = true;
+        --neighbor;
+      }
+      neighbor = current + 1; // check on right side of peak
+      while (
+        neighbor < indices.length &&
+        indices[neighbor] - indices[current] < distance
+      ) {
+        toRemove[neighbor] = true;
+        ++neighbor;
+      }
+    }
+    return indices.filter((v, i) => !toRemove[i]);
+  }
+
+  /**
+   * Filter extremes by moving average of timeseries
+   * @param filteredExtremes - extreme indices
+   * @param values - original signal
+   * @param buffer - buffer between extreme and moving average
+   * @param movingAverage - moving average of original signal
+   * @param findMaxima - either filter for maxima or minima
+   * @returns filtered extreme indices
+   */
+  private filterByMovingAverage(
+    filteredExtremes: number[],
+    values: number[],
+    buffer: number,
+    movingAverage: number[],
+    findMaxima: boolean
+  ): number[] {
+    const extremesFilteredByMovingAverage: number[] = [];
+    for (
+      let extremeIndex = 0;
+      extremeIndex < filteredExtremes.length;
+      extremeIndex++
+    ) {
+      const extreme = filteredExtremes[extremeIndex];
+      const movingAverageOnExtremePoint = movingAverage[extreme];
+      if (
+        findMaxima === true &&
+        values[extreme] > movingAverageOnExtremePoint + buffer
+      ) {
+        extremesFilteredByMovingAverage.push(extreme);
+      } else if (
+        findMaxima === false &&
+        values[extreme] < movingAverageOnExtremePoint - buffer
+      ) {
+        extremesFilteredByMovingAverage.push(extreme);
+      }
+    }
+    return extremesFilteredByMovingAverage;
+  }
+
+  /**
+   * Filter extremes by required properties.
+   * @param {number[]} indices - extreme indices
+   * @param {number[]} values - original signal
+   * @param {number} distance - minimum distance between extremes
+   * @param {number} height - minimum of maximum height of extremes
+   * @param {number[]} movingAverage - moving average of original signal
+   * @param {number} buffer - buffer between extreme and moving average
+   * @param {boolean} findMaxima - either filter for maxima or minima
+   * @returns {number[]} filtered extreme indices
+   */
+  private filterExtreme(
+    indices: number[],
+    values: number[],
+    distance: number | undefined,
+    height: number | undefined,
+    movingAverage: number[] | undefined,
+    buffer: number,
+    findMaxima: boolean
+  ): number[] {
+    let new_indices = indices;
+    if (height !== undefined) {
+      new_indices = this.filterByHeight(indices, values, height, findMaxima);
+    }
+    if (distance !== undefined) {
+      new_indices = this.filterByDistance(
+        new_indices,
+        values,
+        distance,
+        findMaxima
+      );
+    }
+    if (movingAverage !== undefined) {
+      new_indices = this.filterByMovingAverage(
+        new_indices,
+        values,
+        buffer,
+        movingAverage,
+        findMaxima
+      );
+    }
+    return new_indices;
+  }
+  
+  /**
+   * Simplified version of SciPy's find_peaks function.
+   * Expanded to include moving average filter.
+   * Expanded to include minima as well.
+   * @param {number[]} values - input signal
+   * @param {number | undefined} distance - minimum distance between extremes
+   * @param {number | undefined} height - minimum height of extremes
+   * @param {number[]} movingAverage - moving average of original signal
+   * @param {number} buffer - buffer to moving average
+   * @param {boolean} findMaxima - either filter for maxima or minima
+   * @returns {number[]} extreme indices
+   */
+  findExtremes(
+    values: number[],
+    distance: number | undefined,
+    height: number | undefined,
+    movingAverage: number[],
+    buffer: number,
+    findMaxima: boolean
+  ): number[] {
+    const indices = this.findLocalExtreme(values, findMaxima);
+    const filteredExtreme = this.filterExtreme(
+      indices,
+      values,
+      distance,
+      height,
+      movingAverage,
+      buffer,
+      findMaxima
+    );
+    return filteredExtreme;
+  }
+
+ /**
+   * Detect extremes in timeseries signal
+   * @param {number[]} values - originial signal
+   * @param {number[]} movingAverage - moving average of original signal
+   * @param {number | undefined} maxHeightMinima - user input max height for minima
+   * @param {number | undefined} minHeightMaxima - user input min height for maxima
+   * @param {number | undefined} distanceBetweenExtremes - user input distance between extremes
+   * @param {number | undefined} buffer - user input for buffer to moving average
+   * @returns {{maxima: number[]; minima: number[];}} maxima and minima for extremes
+   */
+  detectExtremesInData(
+    values: number[],
+    movingAverage: number[],
+    maxHeightMinima?: number,
+    minHeightMaxima?: number,
+    distanceBetweenExtremes?: number,
+    bufferToMovingAverage?: number
+  ): {
+    maxima: number[];
+    minima: number[];
+  } {
+    const highValues = this.getPercentageOfHeight(
+      values,
+      minHeightMaxima !== undefined && minHeightMaxima !== null
+        ? minHeightMaxima
+        : 75
+    );
+    const lowValues = this.getPercentageOfHeight(
+      values,
+      maxHeightMinima !== undefined && maxHeightMinima !== null
+        ? maxHeightMinima
+        : 25
+    );
+    const distance = this.getPercentageOfDistanceBetweenMarkers(
+      values,
+      distanceBetweenExtremes !== undefined && distanceBetweenExtremes !== null
+        ? distanceBetweenExtremes
+        : 2
+    );
+    const buffer = this.getPercentageOfHeight(
+      values,
+      bufferToMovingAverage !== undefined && bufferToMovingAverage !== null
+        ? bufferToMovingAverage
+        : 20
+    );
+    const maxima = this.findExtremes(
+      values,
+      distance,
+      highValues,
+      movingAverage,
+      buffer,
+      true
+    );
+    const minima = this.findExtremes(
+      values,
+      distance,
+      lowValues,
+      movingAverage,
+      buffer,
+      false
+    );
+    return {
+      maxima,
+      minima,
+    };
+  }
+\end{lstlisting}
+\section{Offsets}\label{appendix:trend-detection-code:offsets}
+\begin{lstlisting}[language=Typescript]
+ /**
+   * Detect possible offset in original signal
+   * @param {number[]} values - original signal
+   * @returns annotation for adding offset
+   */
+  detectOffsetInData(values: number[]): boolean {
+    const firstAverage = this.average(values.slice(0, values.length / 2));
+    const secondAverage = this.average(
+      values.slice(values.length / 2, values.length - 1)
+    );
+    const diviationToGetOffset = this.getPercentageOfHeight(values, 10);
+    if (
+      firstAverage + diviationToGetOffset < secondAverage ||
+      firstAverage > secondAverage + diviationToGetOffset
+    ) {
+      return true;
+    }
+    return false;
+  }
+\end{lstlisting}
+\section{Schwingungen}\label{appendix:trend-detection-code:schwingungen}
+\begin{lstlisting}[language=Typescript]
+  /**
+   * Detecting vibrations in data using minima and maxima
+   * @param {number[]} values - original signal
+   * @param {{maxima: number[]; minima: number[]}} maximaAndMinima - maxima and minima of original signal
+   * @param {number | undefined} heightBetweenExtremes - user input min height between extremes
+   * @param {number | undefined} minDistanceBetweenExtremes - user input min distance between extremes
+   * @returns {{ startingPoint: number; endingPoint: number }[]} - array of start and end indices of vibrations
+   */
+  detectVibrationsInData(
+    values: number[],
+    maximaAndMinima: { maxima: number[]; minima: number[] },
+    heightBetweenExtremes?: number,
+    minDistanceBetweenExtremes?: number
+  ): { startingPoint: number; endingPoint: number }[] {
+    const result: { startingPoint: number; endingPoint: number }[] = [];
+    const heightBetweenVibrations = this.getPercentageOfHeight(
+      values,
+      heightBetweenExtremes !== undefined && heightBetweenExtremes !== null
+        ? heightBetweenExtremes
+        : 30
+    );
+    const vibrationDistance = this.getPercentageOfDistanceBetweenMarkers(
+      values,
+      minDistanceBetweenExtremes !== undefined &&
+        minDistanceBetweenExtremes !== null
+        ? minDistanceBetweenExtremes
+        : 1
+    );
+    for (let maxima = 0; maxima < maximaAndMinima.maxima.length; maxima++) {
+      for (let minima = 0; minima < maximaAndMinima.minima.length; minima++) {
+        const peak = maximaAndMinima.maxima[maxima];
+        const dip = maximaAndMinima.minima[minima];
+        if (peak > dip) {
+          if (peak - dip < vibrationDistance) {
+            if (values[peak] - values[dip] > heightBetweenVibrations) {
+              result.push({ startingPoint: dip, endingPoint: peak });
+            }
+          }
+        } else if (dip > peak) {
+          if (dip - peak < vibrationDistance) {
+            if (values[peak] - values[dip] > heightBetweenVibrations) {
+              result.push({ startingPoint: peak, endingPoint: dip });
+            }
+          }
+        }
+      }
+    }
+    return result;
+  }
+\end{lstlisting}
+\section{Abweichungen}\label{appendix:trend-detection-code:abweichungen}
+\begin{lstlisting}[language=Typescript]
+  /**
+   * Function for detecting deviations from the range of values of a signal.
+   * @param {number[]} values - input signal
+   * @param {number | undefined } customValueOfPointsTop - user input for custom Value of Points TOP
+   * @param {number | undefined } customValueOfPointsBottom - user input for custom Value of Points BOTTOM
+   * @returns {{high: number; low: number}} range of values with a buffer
+   */
+  detectRangeOfValuesInData(
+    values: number[],
+    customValueOfPointsTop?: number,
+    customValueOfPointsBottom?: number
+  ): { high: number; low: number } {
+    if (
+      customValueOfPointsTop !== undefined &&
+      customValueOfPointsTop !== null &&
+      customValueOfPointsBottom !== undefined &&
+      customValueOfPointsBottom !== null
+    ) {
+      return { high: customValueOfPointsTop, low: customValueOfPointsBottom };
+    }
+    const average = this.average(values);
+    const buffer = this.getPercentageOfHeight(values, 20);
+    const averageHigh = average + buffer;
+    const averageLow = average - buffer;
+    return { high: averageHigh, low: averageLow };
+  }
+
+\end{lstlisting}

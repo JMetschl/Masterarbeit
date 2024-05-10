@@ -1,0 +1,167 @@
+%*************************************************************************
+% A Classic Thesis Style
+% An Homage to The Elements of Typographic Style
+%
+% Copyright (C) 2017 André Miede and Ivo Pletikosić
+%
+% If you like the style then I would appreciate a postcard. My address
+% can be found in the file ClassicThesis.pdf. A collection of the
+% postcards I received so far is available online at
+% http://postcards.miede.de
+%
+% License:
+% This program is free software; you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation; either version 2 of the License, or
+% (at your option) any later version.
+%
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with this program; see the file COPYING.  If not, write to
+% the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+% Boston, MA 02111-1307, USA.
+%
+% PLEASE SEE ALSO THE AUTHORS' NOTE REGARDING THIS LICENSE
+% IN THE DOCUMENTATION (ClassicThesis.pdf --> Chapter 1 / Chapter01.tex)
+%*************************************************************************
+\RequirePackage{silence} % :-\
+    \WarningFilter{scrreprt}{Usage of package `titlesec'}
+    %\WarningFilter{scrreprt}{Activating an ugly workaround}
+    \WarningFilter{titlesec}{Non standard sectioning command detected}
+\documentclass[ openright,titlepage,numbers=noenddot,headinclude,%twoside, %1headlines,% letterpaper a4paper
+                footinclude=true,cleardoublepage=empty,abstractoff, % <--- obsolete, remove (todo)
+                BCOR=5mm,paper=a4,fontsize=11pt,%11pt,a4paper,%
+                ngerman,american,%lockflag%
+                ]{scrreprt}
+
+%*************************************************************************
+% Note: Make all your adjustments in here
+%*************************************************************************
+\input{fernuni-hagen-thesis-config}
+\input{classicthesis-config}
+
+%linenumbers
+\usepackage{lineno}
+\usepackage{csquotes}
+\usepackage{multicol}
+\usepackage{hyperref}
+
+%code style
+\usepackage{xcolor}
+\definecolor{lightgray}{rgb}{.9,.9,.9}
+\definecolor{darkgray}{rgb}{.4,.4,.4}
+\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+\lstdefinelanguage{TypeScript}{
+  keywords={break, case, catch, continue, debugger, default, delete, do, else, false, finally, for, function, if, in, instanceof, new, return, switch, this, throw, true, try, typeof, var, void, while, with, readonly, private, public, const, Interface},
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]",
+  ndkeywords={class, export, boolean, throw, implements, import, this, string, number, any, undefined},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywordstyle=\color{darkgray}\bfseries,
+  identifierstyle=\color{black},
+  commentstyle=\color{purple}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  sensitive=true
+}
+
+
+\lstset{
+   language=TypeScript,
+   backgroundcolor=\color{lightgray},
+   extendedchars=true,
+   basicstyle=\footnotesize\ttfamily,
+   showstringspaces=false,
+   showspaces=false,
+   numbers=left,
+   numberstyle=\footnotesize,
+   numbersep=9pt,
+   tabsize=2,
+   breaklines=true,
+   showtabs=false,
+   captionpos=b
+}
+\newcommand{\llabel}[1]{\hypertarget{llineno:#1}{\linelabel{#1}}}
+\newcommand{\lref}[1]{\hyperlink{llineno:#1}{\ref*{#1}}}
+
+
+%*************************************************************************
+% Bibliographies
+%*************************************************************************
+\addbibresource{quellen.bib}
+
+%*************************************************************************
+% Hyphenation
+%*************************************************************************
+%\hyphenation{put special hyphenation here}
+
+%*************************************************************************
+% GO!GO!GO! MOVE IT!
+%*************************************************************************
+\begin{document}
+\frenchspacing
+\raggedbottom
+\selectlanguage{ngerman} % ngerman, american
+%\renewcommand*{\bibname}{new name}
+%\setbibpreamble{}
+\pagenumbering{roman}
+\pagestyle{plain}
+%*************************************************************************
+% Frontmatter
+%*************************************************************************
+\include{frontbackmatter/Titlepage}
+\include{frontbackmatter/Titleback}
+\cleardoublepage
+\include{frontbackmatter/Declaration}
+\include{frontbackmatter/BlockingNotice}
+\cleardoublepage\include{frontbackmatter/AbstractDE}
+\cleardoublepage\include{frontbackmatter/AbstractEN}
+\cleardoublepage\include{frontbackmatter/Contents} 
+%\cleardoublepage\include{frontbackmatter/Tables} 
+\cleardoublepage\include{frontbackmatter/Figures}
+%\cleardoublepage\include{frontbackmatter/Listings} 
+\cleardoublepage\include{frontbackmatter/Acronyms}
+%*************************************************************************
+% Mainmatter
+%*************************************************************************
+\cleardoublepage
+\pagestyle{scrheadings}
+\pagenumbering{arabic}
+\automark[section]{chapter}
+% Alwas use \cleardoublepage before \part{...}.
+\cleardoublepage
+\part{Thesis}\label{pt:thesis}
+\include{chapters/1_einleitung}
+\include{chapters/2_hauptteil}
+\include{chapters/3_evaluation}
+
+%*************************************************************************
+% Backmatter
+%*************************************************************************
+\appendix
+\cleardoublepage
+\part{Appendix}
+\include{appendix/InterviewTrends/Leitfaden_Interview}
+\include{appendix/InterviewTrends/Benedikt_Mundl}
+\include{appendix/InterviewTrends/Jeele_Boeggemann}
+\include{appendix/InterviewTrends/Michael_Staedele}
+\include{appendix/InterviewTrends/Florian_Zenzinger}
+\include{appendix/Interfaces}
+\include{appendix/code/trend-detection}
+\include{appendix/InterviewEnde/Leitfaden_Ende}
+\include{appendix/InterviewEnde/Jeele_Boeggemann}
+\include{appendix/InterviewEnde/Benedikt_Mundl}
+\include{appendix/InterviewEnde/Michael_Staedele}
+\include{appendix/InterviewEnde/Florian_Zenzinger}
+%*************************************************************************
+%*************************************************************************
+\cleardoublepage\include{frontbackmatter/Bibliography}
+%*************************************************************************
+%*************************************************************************
+\end{document}
+%*************************************************************************
