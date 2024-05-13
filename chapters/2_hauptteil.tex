@@ -1,30 +1,62 @@
 \chapter{Storytelling für kraftfahrzeugbasierte Daten}
 \section{Stand der Forschung}
 %Bezug zur Forschungsfrage + Verlinkung auf Methoden
-Laut \cite{Daradkeh.2023} gibt es zwei theoretische Ansätze für die Forschung an Data-Storytelling: erstens die direkte Erstellung von Datengeschichten und zweitens die Entwicklung von Softwaretools für die Generierung von Datengeschichten. Data-Storytelling ist laut \cite{Daradkeh.2023} der Prozess, aus vorhandenen Daten eine Datengeschichte zu entwickeln. Dieser Prozess oder Ablauf wird in \ref{sec:methoden} genauer ausgeführt. Er wird in dieser Arbeit erklärt und genutzt, um Visualisierungen zu bilden und Daten darzustellen. Ergänzend zu diesem Ablauf wird in \cite{Daradkeh.2023} ein Data-Story-Modell vorgestellt, das eine Datengeschichte in die folgenden Elemente unterteilt: Requirements (deut. Anforderungen), Characters (deut. Zielgruppe), Context (deut. Kontext), Plot (deut. Handlung der Datengeschichte), Conflict (deut. Konflikte in der Handlung der Datengeschichte), Resolution (deut. Lösungsansätze für die Konflikte). Potenziell lässt sich durch das Verschmelzen des Ablaufs für die Bildung von Datengeschichten und des Data-Story-Modells für das Erstellen von Datengeschichten ein Mehrwert für das  Ergebnis der Darstellung der Datengeschichte erreichen.
-\\\\Besonders für die Darstellung gibt es in der aktuellen Forschung bereits einige festgelegte Regeln. So wurde beispielsweise von \cite{Schwabish.2021} ein \glqq Data Visualization Ranking [sic]\grqq{} festgelegt, bei dem die Graphen nach ihrer Fähigkeit, Daten genau darzustellen, beurteilt werden. Ebenso wurden von \cite{Schwabish.2021} Design-Guidelines und ein Visualization-Styleguide erstellt. Die Punkte dieses Styleguides lassen sich so kategorisieren: 
+
+
+
+Data-Storytelling ist laut \cite{Daradkeh.2023} der Prozess, aus vorhandenen Daten eine Datengeschichte zu entwickeln. Dieser in \ref{sec:methoden} genauer ausgeführte Prozess wird in der vorliegenden Arbeit verwendet, um Visualisierungen zu bilden und Daten darzustellen.
+
+Ergänzend zu diesem Prozess wird in \cite{Daradkeh.2023} ein Data-Story-Modell vorgestellt, das eine Datengeschichte in die folgenden Elemente unterteilt: Requirements (dt. Anforderungen), Characters (dt. Zielgruppe), Context (dt. Kontext), Plot (dt. Handlung der Datengeschichte), Conflict (dt. Konflikte in der Handlung der Datengeschichte) und Resolution (dt. Lösungsansätze für die Konflikte). Potenziell lässt sich durch das Verschmelzen des Bildungsprozesses für Datengeschichten mit dem Data-Story-Modell ein Mehrwert für die Darstellung erreichen.
+
+Insbesondere für die Darstellung gibt es in der aktuellen Forschung bereits festgelegte Regeln. So bewertet beispielsweise \cite{Schwabish.2021} in einem sog. \glqq Data Visualization Ranking [sic]\grqq{} verschiedene Graphen nach ihrer Fähigkeit, Daten genau darzustellen. Darüber hinaus legt \cite{Schwabish.2021} Design-Guidelines und einen Visualization-Styleguide fest, dessen Punkte sich wie folgt kategorisieren lassen: 
 \begin{enumerate}
-    \item Graph Anatomy (deut. Graphaufbau)
-    \item Color Palette (deut. Farbpalette)
-    \item Font (deut. Schriftart)
+    \item Graph Anatomy (dt. Graphaufbau)
+    \item Color Palette (dt. Farbpalette)
+    \item Font (dt. Schriftart)
     \item Graph Types
-    \item Exporting Images (deut. Bilder exportieren)
-    \item Accessibility, Diversity and Inclusion (deut. Barrierefreiheit, Vielfalt und Inklusion)
+    \item Exporting Images (dt. Bilder exportieren)
+    \item Accessibility, Diversity and Inclusion (dt. Barrierefreiheit, Vielfalt und Inklusion)
 \end{enumerate}
-Dieser Styleguide wird auch bei der Erstellung der Graphen für diese Arbeit genutzt. Dabei sind die Farbpalette, Schriftart und die Art, wie die Bilder der Graphen exportiert werden, zum großen Teil schon festgelegt.
-Wie bereits anfangs erwähnt, gibt es einige Algorithmen, die das Erstellen von Graphen automatisieren oder erleichtern. Hierfür werden Insights benötigt. Insights sind laut \cite{HewlettPackardEnterpriseDevelopmentLP.2023} die Ergebnisse von Analysen oder Patterns, um die gegebenen Daten besser zu verstehen.
+
+Dieser Styleguide wird bei der Erstellung der Graphen für diese Arbeit genutzt. Dabei sind die Farbpalette, Schriftart und die Art, wie die Bilder der Graphen exportiert werden, zum großen Teil schon festgelegt.
+
+\cite{Daradkeh.2023} beschreibt zwei grundlegende Ansätze für die Verwendung von Data-Storytelling: Die manuelle Erstellung von Datengeschichten und die Entwicklung von Softwaretools für die automatisierte Generierung von Datengeschichten.
+
+Für letzteres Vorgehen werden Insights benötigt. Insights sind laut \cite{HewlettPackardEnterpriseDevelopmentLP.2023} Analyseergebnisse oder Patterns, mit deren Hilfe die gegebenen Daten leichter verständlich sind.
+
+% TODO: was wird hier aufgezählt?
 \begin{itemize}
-    \item Extracting top-k insights\hfill\\  Es liegen mehrere Datensets vor, aber nur die \glqq interessanten\grqq{} Daten werden dargestellt \cite{Tang.2017}. Dieser Algorithmus kann im Rahmen dieser Arbeit genutzt werden, um aus den vorhandenen Daten die \glqq top-k insights\grqq{} zu erzeugen. Anhand dieser Insights kann eine Auswahl für mögliche Graphen getroffen werden.\\
-    \item DeepEye\hfill\\ Dieses System wurde für die Beurteilung von Graphen entwickelt \cite{Luo.2018}. Damit können für diese Arbeit erstellte Graphen überprüft und bewertet werden.\\
-    \item QuickInsights\hfill\\ Automatische Feststellung von Insights\\
-    \item MetaInsight\hfill\\ Automatische Feststellung von strukturiertem Wissen über Daten\\
+    \item Extracting top-k insights\hfill
+
+    Aus einer Menge vorliegender Datenpunkte werden nur die k \glqq interessantesten\grqq{} dargestellt \cite{Tang.2017}. Dieser Algorithmus wird im Rahmen der vorliegenden Arbeit genutzt, um aus den vorhandenen Daten die \glqq top-k insights\grqq{} zu erzeugen. Anhand dieser Insights kann eine Auswahl für mögliche Graphen getroffen werden.
+    
+    \item DeepEye\hfill
+
+    Dieses System wurde für die Beurteilung von Graphen entwickelt \cite{Luo.2018}. Damit könnten die für diese Arbeit erstellten Graphen überprüft und bewertet werden.
+    
+    \item QuickInsights\hfill
+
+    Automatische Feststellung von Insights, z.B. Häufigkeit verwendeter Schlagwörter
+    
+    \item MetaInsight\hfill
+
+    Automatische Feststellung von strukturiertem Wissen über Daten
 \end{itemize}
-Über das Thema Data-Storytelling im Zusammenhang mit Datendarstellungen zu Fahrzeugen oder Ähnlichem konnten keine wissenschaftlichen Forschungsartikel gefunden werden. Dazu lässt sich feststellen, dass die meiste Forschung über das Data-Storytelling sich auf Pädagogik oder Vortragsmethodik richtet.
+
+Zum Thema Data-Storytelling in Zusammenhang mit Fahrzeugdaten konnten keine wissenschaftlichen Forschungsartikel gefunden werden. Dazu lässt sich feststellen, dass ein Großteil der Forschung im Bereich Data-Storytelling sich auf Pädagogik oder Vortragsmethodik richtet.
+
 \section{Methoden}\label{sec:methoden}
-Allgemein gilt für das Data-Storytelling, laut \cite{Prof.Dr.ChristianBeecks.}, \cite{TalksatGoogle.2015} und \cite{Knaflic.2016}, der folgende Ablauf, um eine Datengeschichte zu erstellen:
+\cite{Prof.Dr.ChristianBeecks.}, \cite{TalksatGoogle.2015} und \cite{Knaflic.2016} beschreiben den folgenden allgemeinen Ablauf, um eine Datengeschichte zu erstellen:
 \begin{enumerate}
-    \item Kontext verstehen\hfill\\ In diesem Schritt werden Zielgruppenforschung sowie Requirementsengineering mit dem Auftraggeber oder Kunden betrieben. Hierfür wird häufig Storyboarding genutzt. Die wichtigsten Fragen, die in diesem Schritt geklärt werden müssen, sind: Was? Wer? Wie?\\ Besonders in dieser Arbeit ist das Verstehen des Kontextes von größter Wichtigkeit, da es sich bei den darzustellenden Daten um teilweise abstrakte Konzepte handelt. Auch Storyboarding wird von \cite{Knaflic.2016} für diesen Schritt empfohlen, um durch einfache visuelle Hilfe zu verifizieren, dass es bei der Kommunikation zwischen dem Kunden und dem Ersteller des Graphen zu keinen Missverständnissen kommt.\\
-    \item Darstellung wählen\hfill\\ Nicht jeder Graph ist für bestimmte Daten sinnvoll, deswegen wird in diesem Schritt die passende Darstellung für die gegebenen Daten ausgewählt. In \cite{Knaflic.2016} werden die folgenden Graphen als gängigste erwähnt:
+    \item Kontext verstehen\hfill
+    
+    In diesem Schritt werden Zielgruppenforschung sowie Requirements-Engineering mit dem Auftraggeber oder Kunden betrieben. Hierfür wird häufig Storyboarding genutzt. Die wichtigsten Fragen, die in diesem Schritt geklärt werden müssen, sind: Was? Wer? Wie?
+    
+    Besonders in dieser Arbeit ist das Verstehen des Kontextes von größter Wichtigkeit, da es sich bei den darzustellenden Daten um teilweise abstrakte Konzepte handelt. Auch Storyboarding wird von \cite{Knaflic.2016} für diesen Schritt empfohlen, um durch einfache visuelle Hilfe zu verifizieren, dass es bei der Kommunikation zwischen dem Kunden und dem Ersteller des Graphen zu keinen Missverständnissen kommt.
+    
+    \item Darstellung wählen\hfill
+    
+    Nicht jeder Graph ist für bestimmte Daten sinnvoll, deswegen wird in diesem Schritt die passende Darstellung für die gegebenen Daten ausgewählt. In \cite{Knaflic.2016} werden die folgenden gängigen Graphen erwähnt:
     \begin{multicols}{2}
     \begin{itemize}
         \item Simple Text
@@ -33,61 +65,173 @@ Allgemein gilt für das Data-Storytelling, laut \cite{Prof.Dr.ChristianBeecks.},
         \item Line
         \item Heatmap
         \item Slopegraph
-        \item Vertical bar
-        \item Horizontal bar
-        \item Stacked vertical bar
-        \item Stacked horizontal bar
+        \item Vertical Bar
+        \item Horizontal Bar
+        \item Stacked Vertical Bar
+        \item Stacked Horizontal Bar
         \item Waterfall
-        \item Square area
+        \item Square Area
     \end{itemize}
     \end{multicols}
-    Unter \cite{SeverinoRibecca.} werden viele Charttypen aufgelistet, die vereinfacht dargestellt sind und auch nach Funktion gefiltert werden können. Das kann bei der Auswahl des passenden Charttyps helfen.\\
-    \item Ordnung schaffen\hfill\\ Unter Ordnung schaffen wird im Sinne des Data-Storytellings verstanden, dass ablenkende Bestandteile des Graphen entfernt werden, um den \glqq Cognitive Load\grqq{} des Benutzers zu verringern. Laut \cite{Plass.2010} handelt es sich bei Cognitive Load (deut. kognitive Belastung) um das Ausmaß der beanspruchten mentalen Ressourcen bei beispielsweise dem Bedienen eines Programmes. Um diese Belastung zu reduzieren, kann White Space, also Lücken zwischen den verschiedenen Elementen des Programmes, genutzt werden. Es ist ebenso sinnvoll, die Gestalt-Principles aus \cite{Schwabish.2021} zu beachten. Bei den Gestalt-Principles handelt es sich um visuelle Prinzipien, um beispielsweise die  Zusammengehörigkeit zwischen Elementen eines Graphen darzustellen. Insgesamt gibt es sechs Prinzipien: Proximity (deut. Nähe), Similarity (deut. Ähnlichkeit), Enclosure (deut. Eingeschlossenheit), Closure (deut. Geschlossenheit), Continuity (deut. Kontinuität) und Connection (deut. Verbindung). Zum Reduzieren des Visual Clutter können beispielsweise Farben reduziert, zu viele Elemente des Graphen zusammengefasst, nicht dringend nötige Texte entfernt oder die Gridlinien entfernt werden. Als Visual Clutter definiert \cite{Rosenholtz.2005} den Zustand, in dem ein Übermaß an Gegenständen oder deren Darstellung zu einer Verschlechterung der Leistung bei einer bestimmten Aufgabe führt. Wichtig dabei ist zu unterscheiden, welche Elemente nicht zum Verständnis der Daten im Graphen beitragen \cite{TalksatGoogle.2015}.\\
-    \item Aufmerksamkeit bündeln\hfill\\ Um die Aufmerksamkeit des Benutzers zu bündeln, werden \glqq Preattentive Attributes\grqq{} genutzt. Preattentive Attributes, oder präattentive Attribute, sind Reize, die vom Gehirn vor allen anderen Informationen ohne viel Zeitaufwand direkt wahrgenommen werden. Die Attribute werden in der folgenden Abbildung \ref{fig:attributes} von \cite{Knaflic.2016} und \cite{Few.2004} definiert.
+    Als Hilfestellung bei der Auswahl der passenden Darstellungsform kann die Website \cite{SeverinoRibecca.} dienen, die eine große Auswahl von Charttypen erklärt und anhand einfacher Beispiele präsentiert. Die Charttypen sind dabei nach ihrer Funktion filterbar, sodass der Nutzer beispielsweise nur Charttypen für die Darstellung von Zeitreihendaten anzeigen lassen kann.
+
+    % TODO: Cognitive Load oder Mental Load? weiter oben hieß es mal anders
+    % Ordnung schaffen irgendwie hervorheben, zb in Anführungszeichen
+    \item Ordnung schaffen\hfill
+    
+    Unter \glqq Ordnung schaffen\grqq{} wird im Sinne des Data-Storytellings verstanden, dass ablenkende Bestandteile des Graphen entfernt werden, um den \glqq Cognitive Load\grqq{} des Benutzers zu verringern. Laut \cite{Plass.2010} handelt es sich bei Cognitive Load (dt. kognitive Belastung) um das Ausmaß der beanspruchten mentalen Ressourcen, die beispielsweise zum Bedienen eines Programms nötig sind.
+
+    Um diese Belastung zu reduzieren, kann beispielsweise White Space genutzt werden, indem Lücken zwischen den visuellen Elementen des Programms eingeführt werden. % des Programms oder eines Graphen?
+
+    Ebenso ist es sinnvoll, die Gestalt-Principles aus \cite{Schwabish.2021} zu beachten. Bei den Gestalt-Principles handelt es sich um visuelle Prinzipien, um beispielsweise die  Zusammengehörigkeit zwischen Elementen eines Graphen darzustellen. Insgesamt gibt es sechs Prinzipien: Proximity (dt. Nähe), Similarity (dt. Ähnlichkeit), Enclosure (dt. Eingeschlossenheit), Closure (dt. Geschlossenheit), Continuity (dt. Kontinuität) und Connection (dt. Verbindung).
+
+    Zur Reduktion des Visual Clutter können etwa die Anzahl der verwendeten Farben reduziert, Elemente des Graphen zusammengefasst, nicht zwingend notwendige Texte entfernt oder die Gridlinien entfernt werden. Als Visual Clutter definiert \cite{Rosenholtz.2005} den Zustand, in dem ein Übermaß an Gegenständen oder deren Darstellung zu einer Verschlechterung der Leistung bei einer bestimmten Aufgabe führt. Wichtig dabei ist es, diejenigen Elemente zu identifizieren, die nicht zum Verständnis der Daten im Graphen beitragen \cite{TalksatGoogle.2015}.
+
+    \item Aufmerksamkeit bündeln\hfill
+
+    % da fehlt vielleicht noch, dass ähnliche Datenpunkten auch ähnlich angeordnet und dargestellt werden etc. -> bisschen mehr die Abbildung beschreiben
+    Um die Aufmerksamkeit des Benutzers zu bündeln, werden die in Abbildung \ref{fig:attributes} dargestellten \glqq Preattentive Attributes\grqq{} genutzt. Preattentive Attributes (dt. präattentive Attribute) sind Reize, die vom Gehirn vor allen anderen Informationen unterbewusst wahrgenommen werden.
+
     \begin{figure}[h!]
     \centering
     \includegraphics[width=0.8\textwidth]{gfx/preattentive attributes.png}
     \caption{Die präattentiven Attribute von \cite{Knaflic.2016} und \cite{Few.2004}}
     \label{fig:attributes}
     \end{figure}
-    Wichtig ist, zu entscheiden, was im Graphen zu den wichtigsten Punkten zählt. Hierzu können etwa folgende Fragen gestellt werden: Welche Aspekte werden sinnvoll hervorgehoben? Was ist eine Ablenkung und kann aus dem Graphen entfernt werden? All diese Punkte sind laut \cite{Knaflic.2016}, \cite{TalksatGoogle.2015} relevant bei dem Bündeln der Aufmerksamkeit des Benutzers.\\
-    \item Geschichte erzählen\hfill\\ Im finalen Schritt des Data-Storytellings wird die Geschichte bzw. der Graph logisch aufgebaut. Hierfür müssen ein sinnvoller Anfang und ein Ende festgelegt werden. Zudem soll der Graph ein Fazit und einen Call to Action, also einen Handlungsaufruf, enthalten.
+    
+    Wichtig ist, zu entscheiden, was im Graphen zu den wichtigsten Punkten zählt. Hierzu können etwa folgende Fragen gestellt werden: Welche Aspekte werden sinnvoll hervorgehoben? Was ist eine Ablenkung und kann aus dem Graphen entfernt werden? All diese Punkte sind laut \cite{Knaflic.2016}, \cite{TalksatGoogle.2015} relevant bei dem Bündeln der Aufmerksamkeit des Benutzers.
+    % den letzten Satz kann man hier auch weglassen
+    
+    \item Geschichte erzählen\hfill
+    
+    Im finalen Schritt des Data-Storytellings wird die Geschichte bzw. der Graph logisch aufgebaut. Hierfür müssen ein sinnvoller Anfang und ein Ende festgelegt werden. Zudem soll der Graph ein Fazit und einen Call to Action, also einen Handlungsaufruf, enthalten.
+    % TODO: da wäre ein Beispiel für einen logisch aufgebauten und einen nicht logisch aufgebauten Graphen gut
+
 \end{enumerate}
+
+
 \section{Expertenumfrage mit Auswertung}
+% umfrage oder interviews?
+% in subsections aufteilen: erst allgemein + welche Oberkategorien, dann kurze subsection zu jeder Oberkategorie
+
+% hier fehlt ein allgemeiner Satz, was für Daten überhaupt dargestellt werden sollen
+% den ganzen Absatz umschreiben
 Für die fahrzeugspezifischen Daten in der Anwendung sollen in diesem Anwendungsfall auch Trends erkannt werden können, die später mit dem Data-Storytelling angezeigt werden sollen. Da die Trends in den Daten aber spezifisch sind, wurden für das Finden der relevanten Themen in den Daten Experteninterviews durchgeführt. Dabei ist ein Ziel der Befragung, die genauen Punkte, die in den Zeitreihen durch das Data-Storytelling für die Ingenieure hervorgehoben werden sollen, zu definieren und einzugrenzen. Es können insgesamt drei verschiedene Ziele der Umfrage definiert werden:
 \begin{enumerate}
-    \item Informationen für den ersten Punkt des Data-Storytellings, das Verstehen des Kontextes, sammeln.
-    \item Herausfinden, was die relevanten Informationen sind, die in den Graphen dargestellt werden sollen.
-    \item Im Falle der Zeitreihen definieren, was es für Trends gibt und wann diese auftreten.
+    \item Informationen für den ersten Prozessschritt des Erstellens einer Datengeschichte, das Verstehen des Kontextes, sammeln.
+    \item Herausfinden, welche Daten relevant für die Darstellung in den Graphen sind. % Information hat keinen Plural
+    \item Definieren, welche Trends in den Zeitreihendaten auftreten und wie diese erkannt werden können.
 \end{enumerate}
-Die Interviews zur Erkennung der Trends werden als qualitative Leitfadeninterviews \cite{Engineering.2018} durchgeführt, um den Experten zu ermöglichen weiter in das Thema einzudringen. Die Experten sind in dem Fall vier Ingenieure, die das Verfahren, mit dem die Daten ausgewertet werden, mitentwickelt haben. Der Leitfaden zu den Interviews sowie Transkriptionen aller Interviews sind in \ref{appendix:interview_trends} zu finden. Die Transkriptionen wurden als vereinfachte Transkription angefertigt, da es für diese Arbeit nicht relevant ist, wie die verschiedenen Sprechweisen der Experten sind. Bei den Experten handelt es sich um Benedikt Mundl \ref{appendix:interview_trends_mundl}, Jeele Böggemann \ref{appendix:interview_trends_boeggemann}, Michael Städele \ref{appendix:interview_trends_staedele} und Florian Zenzinger \ref{appendix:interview_trends_zenzinger}, allesamt Ingenieure mit einer fundierten Erfahrung im Bereich Betriebsfestigkeit von mehr als 45 Jahren. Für das einfachere Prüfen der Textstellen sind im Folgenden die Zeilennummern mit den passenden Textstellen im Anhang verlinkt und durch einen Klick auf die erste Zeilennummer aufrufbar.\\
+
+% in einem Nebensatz beschreiben, was ein qlf ist
+Die Interviews zur Trenderkennung werden als qualitative Leitfadeninterviews \cite{Engineering.2018} durchgeführt, um den Experten zu ermöglichen, weiter in das Thema einzudringen.
+
+Die Experten sind vier Ingenieure, die das zur Datenauswertung verwendete Verfahren mitentwickelt haben und zusammen 45 Jahre Erfahrung im Bereich Betriebsfestigkeit aufweisen können: Benedikt Mundl \ref{appendix:interview_trends_mundl}, Jeele Böggemann \ref{appendix:interview_trends_boeggemann}, Michael Städele \ref{appendix:interview_trends_staedele} und Florian Zenzinger \ref{appendix:interview_trends_zenzinger}.
+% die Referenzen vielleicht noch jeweils in Klammern
+
+Der Leitfaden zu den Interviews sowie Transkriptionen aller Interviews sind in \ref{appendix:interview_trends} zu finden. Die Transkriptionen wurden als vereinfachte Transkription angefertigt, da die verschiedenen Sprechweisen der Experten für diese Arbeit nicht relevant sind. Für das einfachere Prüfen der Interviewinhalte sind im Folgenden die Zeilennummern mit den jeweiligen Textstellen im Anhang verlinkt und durch einen Klick auf die erste Zeilennummer aufrufbar.
+% was bedeuten die 45 Jahre? alle zusammen?
+% als vereinfachte T. -> in vereinfachter Form?
+
 %line space in nächster Zeile damit die quelle nicht über den fliestext hinausgeht
-Um die Interviews wissenschaftlich zu analysieren, wurde MAXQDA\\ \cite{MAXQDA.2023} verwendet und nach den Methoden von \cite{Mayring.2022}, \cite{Kuckartz.2022} und \cite{AndreMorgensternEinenkel.2023} die inhaltlich strukturierende qualitative Inhaltsanalyse erstellt. \\\\Anhand dieser Analyse konnten mehrere Kategorien festgelegt werden, die für das Erkennen der Trends in den Daten von Bedeutung sind. Insbesondere die Kategorien in der Überkategorie Trends sind von Wichtigkeit, da in dieser Kategorie genau die Aussagen zu den Trends erkennbar sind. In der Unterkategorie Aufstiege steigen die Daten über einen Zeitraum an, wie von Michael Städele in den Zeilen \lref{appendix:interview_trends_staedele:aufstiege_1}--390 und \lref{appendix:interview_trends_staedele:aufstiege_2}--449 sowie Benedikt Mundl in den Zeilen \lref{appendix:interview_trends_mundl:aufstiege_1}--116 erläutert wird. Die Kategorie Abstiege ist laut den Interviews weniger relevant, diese wurden nur von Michael Städele in den Zeilen \lref{appendix:interview_trends_staedele:abstiege_1}--390 angesprochen. Die Tatsache, dass die Abstiege nur von einem Experten erwähnt werden, wird später in den Darstellungen von Bedeutung. Bei den Abstiegen handelt es sich um den Gegenpart der Aufstiege, weil die Daten sich hier graduell nach unten entwickeln. Das nächste relevante Element in den Daten sind sogenannte Peaks. Peaks können als Minima oder Maxima in den Daten in Relation zu den umliegenden Werten definiert werden. Laut den Experten Florian Zenzinger (Zeilen \lref{appendix:interview_trends_zenzinger:peaks_1}--599), Michael Städele (Zeilen \lref{appendix:interview_trends_staedele:peaks_1}--449 und Zeilen \lref{appendix:interview_trends_staedele:peaks_2}-473) und Benedikt Mundl (Zeilen \lref{appendix:interview_trends_mundl:peaks_1}--41) werden diese bei der Analyse der Daten als Erstes betrachtet. Rückschließend lässt sich davon ausgehen, dass die Peaks in der Darstellung relevanter sind als beispielsweise die Abstiege. Die nächste Kategorie ist das Offset, auch Drift genannt, hierbei handelt es sich um eine Nullpunktverschiebung in den Daten. Durch das Offset kann beispielsweise eine plastische Verformung am Fahrzeugteil erkannt werden, wie Florian Zenzinger (Zeilen \lref{appendix:interview_trends_zenzinger:offset_1}--730 und \lref{appendix:interview_trends_zenzinger:offset_2}--741), Jeele Böggemann (Zeilen \lref{appendix:interview_trends_boeggemann:offset_1}--352) und Benedikt Mundl (Zeilen  \lref{appendix:interview_trends_mundl:offset_1}--46)  beschreiben. Ein weiteres Datenmuster von Interesse sind Schwingungen, bei denen die Daten zwischen maximalen und minimalen Werten rapide hin und her schwanken. Florian Zenzinger erwähnt Schwingungen in den Zeilen \lref{appendix:interview_trends_zenzinger:schwingungen_1}--678, \lref{appendix:interview_trends_zenzinger:schwingungen_2}--682, \lref{appendix:interview_trends_zenzinger:schwingungen_3}--696, \lref{appendix:interview_trends_zenzinger:schwingungen_4} und \lref{appendix:interview_trends_zenzinger:schwingungen_5}--708, während Michael Städele die Schwingungen in den Zeilen \lref{appendix:interview_trends_staedele:schwingungen_1}--452 beschrieben hat. Ansonsten wurden noch allgemeine Abweichungen beschrieben. Damit sind hauptsächlich Über- oder Unterschreitungen eines bestimmten Wertebereichs gemeint. Diese Abweichungen wurden von Florian Zenzinger in den Zeilen \lref{appendix:interview_trends_zenzinger:abweichungen_1}--607, von Jeele Böggemann in den Zeilen \lref{appendix:interview_trends_boeggemann:abweichungen_1}--246 und \lref{appendix:interview_trends_boeggemann:abweichungen_5}--344 sowie von Benedikt Mundl in den Zeilen \lref{appendix:interview_trends_mundl:abweichungen_1}--134 beschrieben. In Abbildung \ref{fig:trends} werden alle Subkategorien der Trends in visueller Form dargestellt, geordnet nach der Häufigkeit der Erwähnung. 
+Um die Interviews wissenschaftlich zu analysieren, wurde MAXQDA\\ \cite{MAXQDA.2023} verwendet und nach den Methoden von \cite{Mayring.2022}, \cite{Kuckartz.2022} und \cite{AndreMorgensternEinenkel.2023} die inhaltlich strukturierende qualitative Inhaltsanalyse erstellt.
+
+% Was sagt der Absatz?
+%Anhand dieser Analyse konnten mehrere Kategorien festgelegt werden, die für das Erkennen der Trends in den Daten von Bedeutung sind. Insbesondere die Kategorien in der Überkategorie Trends sind von Wichtigkeit, da in dieser Kategorie genau die Aussagen zu den Trends erkennbar sind.
+
+Anhand dieser Analyse lassen sich die zu erkennenden Trends in die in Abbildung \ref{fig:trends} dargestellten Kategorien einordnen.
+
+% die Kategorien sind nicht sortiert -> "mit Häufigkeit der Erwähnung"
 \begin{figure}[h!]
-\centering
-\includegraphics[scale=0.7]{appendix/InterviewTrends/anzahl trends.pdf}
-\caption{Die Trendkategorien sortiert nach Häufigkeit der Erwähnung}
-\label{fig:trends}
+    \centering
+    \includegraphics[scale=0.7]{appendix/InterviewTrends/anzahl trends.pdf}
+    \caption{Die Trendkategorien sortiert nach Häufigkeit der Erwähnung}
+    \label{fig:trends}
 \end{figure}
-\\In Bezug auf die Interviews lassen sich auch einige Aussagen zu den Daten allgemein treffen. So wird von Florian Zenzinger in den Zeilen \lref{appendix:interview_trends_zenzinger:daten_1}--717 die Darstellungsmethode \ac{PSD} erklärt. Diese Darstellungsmethode kann laut Herrn Zenzinger bei den Zeitreihen benutzt werden, um die Schwingungen eines Teils darzustellen. Michael Städele (Zeilen \lref{appendix:interview_trends_staedele:daten_1}--431) und Jeele Böggemann (Zeilen \lref{appendix:interview_trends_boeggemann:daten_1}--229, \lref{appendix:interview_trends_boeggemann:daten_2}--270 und \lref{appendix:interview_trends_boeggemann:daten_3}--280) gehen genauer auf die Daten ein, die von den Sensoren geschickt werden. Dabei wird von Michael Städele auch das \ac{DT} erwähnt. Hierbei handelt es sich um das Verfahren, mit dem rechnerisch die Beschleunigungen und Belastungen der Komponenten abgeleitet werden können. Jeele Böggemann erklärt, dass für das Messen \ac{DMS} verwendet werden. In \cite{Keil.2017} wird das Messen mit \ac{DMS} als \glqq [Erfassung der] Dehnungsmessstreifen [von] Dehnungen, die die vom Aufnehmer zu messenden mechanischen Größen im Messkörper des Aufnehmers [hervorrufen]\grqq{}, erklärt. Jeele Böggemann spricht zudem noch von sogenannten Targets, die von Herrn Böggemann als \glqq Wert, mit dem das Fahrzeug abgeprüft wurde\grqq{}, beschrieben werden. In \ref{appendix:general_types} in den Zeilen 51-–73 ist der zum Target passende Datentyp dargestellt.\\\\Zusätzlich zu den allgemeinen Daten werden von den Interviewten auch Aussagen über die Extremwerte und die Schädigungswerte getroffen. Die Extremwerte werden von Florian Zenzinger (Zeilen \lref{appendix:interview_trends_zenzinger:extremwerte_1}--670), von Jeele Böggemann (Zeilen \lref{appendix:interview_trends_boeggemann:extremwerte_1}--235 und \lref{appendix:interview_trends_boeggemann:extremwerte_2}--466) und von Benedikt Mundl (Zeilen \lref{appendix:interview_trends_mundl:extremwerte_1}--27 und \lref{appendix:interview_trends_mundl:extremwerte_2}--176) erwähnt. Sie sind sich einig darüber, dass es sich bei den Extremwerten um die ersten Points of Interest handelt, die sie bei der Analyse prüfen. Daraus resultierend sollen bei der späteren Darstellung von Daten mit dem Data-Storytelling die Extremwerte hervorgehoben werden. Besonders auf \glqq Ausreißer\grqq{} wird bei der Analyse Wert gelegt. Ebenso werden die Schädigungswerte von allen interviewten Personen als wichtig erachtet, von Florian Zenzinger in den Zeilen \lref{appendix:interview_trends_zenzinger:schädigungswerte_1}--677, Michael Städele in den Zeilen \lref{appendix:interview_trends_staedele:schädigungswerte_1}--389 und \lref{appendix:interview_trends_staedele:schädigungswerte_2}--466, Jeele Böggemann in den Zeilen \lref{appendix:interview_trends_boeggemann:schädigungswerte_1}--240 und Benedikt Mundl in den Zeilen \lref{appendix:interview_trends_mundl:schädigungswerte_1}--108, \lref{appendix:interview_trends_mundl:schädigungswerte_2}--110 und \lref{appendix:interview_trends_mundl:schädigungswerte_3}--180. Die Schädigung kann mittels eines Wertes definiert werden, der angibt, wie lange die Lebensdauer eines Bauteils ist.\\
-Die Kategorie der Visualisierungen wird in zwei Unterkategorien eingeteilt, die Zeitreihen und die Zählmethoden. Zu den Zählmethoden zählen auch die Erwähnungen von \glqq Kollektiven\grqq{}, vollständig Lastkollektive genannt. Kollektive werden in \cite{Jacobs.2016} definiert als \glqq ein Datensatz, der die Beanspruchung eines Bauteils oder einer Maschine in einem bestimmten Zeitraum abbildet. In einem Lastkollektiv wird der Verlauf der einwirkenden Kraft oder der auftretenden Spannung über [die] Zeit bestimmt\grqq{}. Florian Zenzinger achtet, laut den Zeilen \lref{appendix:interview_trends_zenzinger:zeitreihen_1}--679 und \lref{appendix:interview_trends_zenzinger:zeitreihen_2}--696, in den Zeitreihen besonders auf starke Schwingungen. Indessen wünscht sich Benedikt Mundl laut den Zeilen \lref{appendix:interview_trends_mundl:zeitreihen_1}--190 eine Möglichkeit, mehrere Zeitschriebe miteinander zu vergleichen. Die Zählmethoden werden von Herrn Mundl in den Zeilen \lref{appendix:interview_trends_mundl:zaehlmethoden_1}--186 erwähnt und genauer als Kollektive, Rangepair und Levelcrossing definiert. Laut Jeele Böggemann (Zeilen \lref{appendix:interview_trends_boeggemann:zaehlmethoden_1}--307) ist die Darstellung der Kollektive für ihn besonders relevant. \\\\ Des Weiteren gibt es die Hauptkategorie Plausibilisierung, bei der anhand von automatischer Erkennung direkt überprüft werden sollte, ob die Daten  realistisch und plausibel sind. Die Plausibilisierung allgemein wird von Florian Zenzinger (Zeilen \lref{appendix:interview_trends_zenzinger:plausibilisierung_1}--598) und von Benedikt Mundl (Zeilen \lref{appendix:interview_trends_mundl:plausibilisierung_1}--31) erwähnt. Im Allgemeinen ist bei der Plausibilisierung nur schwierig automatisch zu bestimmen, wann ein Wert realistisch ist, da sich die Ingenieure dabei stark auf ihre Erfahrung verlassen. Aber wenn beispielsweise ein Signal über längere Zeit null ist, obwohl sich das Fahrzeug  bewegt, ist die Wahrscheinlichkeit hoch, dass es sich um einen Defekt oder Messfehler handelt. Hieraus resultiert eine weitere Unterkategorie in der Plausibilisierung: Defekte und Messfehler. Florian Zenzinger (Zeilen \lref{appendix:interview_trends_zenzinger:defekte_1}--616), Michael Städele (Zeilen \lref{appendix:interview_trends_staedele:defekte_1}--445), Jeele Böggemann (Zeilen \lref{appendix:interview_trends_boeggemann:defekte_1}--237) und Benedikt Mundl (Zeilen \lref{appendix:interview_trends_mundl:defekte_1}, \lref{appendix:interview_trends_mundl:defekte_2}--28, \lref{appendix:interview_trends_mundl:defekte_3}--116 und \lref{appendix:interview_trends_mundl:defekte_4}--125) erwähnen allesamt Messfehler oder Defekte an den Sensoren. Solche Fehler erkennt man laut den Interviewten häufig an Peaks, Ausreißern oder an Nullwerten, die von den Sensoren gesendet werden. Auch deswegen sind die Peaks in der Trenderkennung  relevant. Auch bei individuellen Fehlern des Fahrers kann es zu Problemen bei der Plausibilisierung kommen. Jeele Böggemann (Zeilen \lref{appendix:interview_trends_boeggemann:fahrer_1}--274) und Benedikt Mundl (Zeilen \lref{appendix:interview_trends_mundl:fahrer_1}--98 und \lref{appendix:interview_trends_mundl:fahrer_2}--125) sprechen dieses Thema an. Eine Voraussetzung der Messungen ist im Speziellen bei der Dauerlauferprobung ist, die Strecken immer gleich abzufahren. Denn wenn ein Fahrer beispielsweise den Bordstein anfährt oder von der Strecke abkommt, können die Messungen abweichen. Auch hier ist es schwierig, automatisch zu erkennen, wann so ein Fehler vorliegt, da auch das auf der Erfahrung der auswertenden Ingenieure basiert. \\ Zuletzt wurden die interviewten Ingenieure nach den bereits geplanten Unterseiten für die Webseite befragt. Das Dashboard soll laut Florian Zenzinger (Zeilen \lref{appendix:interview_trends_zenzinger:dashboard_1}--659) und Benedikt Mundl (Zeilen \lref{appendix:interview_trends_mundl:dashboard_1}--72) zunächst als Einstieg in die Datenbasis gesehen werden, mit einer Übersicht dazu, welche Einsatzorte und Strecken es in den vorhandenen Daten gibt und welche Fahrzeuge diese abgefahren sind. Zu der Unterseite mit den Vergleichen der Erprobungen und den realen Einsätzen wird von Michael Städele (Zeilen \lref{appendix:interview_trends_staedele:vergleich_1}--551) und Benedikt Mundl (Zeilen \lref{appendix:interview_trends_mundl:vergleich_1}--158 und \lref{appendix:interview_trends_mundl:vergleich_2}-167) angemerkt, dass es sich hier um die wichtigste Unterseite handelt. Der Grund liegt darin, dass durch die Vergleiche berechnet wird, wie ein Fahrzeug voraussichtlich in einem, in der Zukunft liegenden, Einsatz beschädigt wird. Auf der Unterseite der Dauerlauferprobung werden die Daten der Fahrzeuge auf festgelegten Strecken von denselben Fahrern über lange Zeit erprobt. Gleichzeitig werden die Vergleichsdaten gesammelt, die dann auf der Vergleichsseite verwendet werden. Dies wird von Florian Zenzinger (Zeilen \lref{appendix:interview_trends_zenzinger:dauerlauferprobung_1}--646), Michael Städele (Zeilen \lref{appendix:interview_trends_staedele:dauerlauferprobung_1}--511 und \lref{appendix:interview_trends_staedele:dauerlauferprobung_2}--539), Jeele Böggemann (Zeilen \lref{appendix:interview_trends_boeggemann:dauerlauferprobung_1}--299) sowie Benedikt Mundl (Zeilen \lref{appendix:interview_trends_mundl:dauerlauferprobung_1}--80, \lref{appendix:interview_trends_mundl:dauerlauferprobung_2}--105, \lref{appendix:interview_trends_mundl:dauerlauferprobung_3}--108 und \lref{appendix:interview_trends_mundl:dauerlauferprobung_4}--144) übereinstimmend bestätigt. \\\\ Zum Data-Storytelling haben Michael Städele (Zeilen \lref{appendix:interview_trends_staedele:storytelling_1}--402, \lref{appendix:interview_trends_staedele:storytelling_2}--412 und \lref{appendix:interview_trends_staedele:storytelling_3}--557) und Florian Zenzinger (Zeilen \lref{appendix:interview_trends_zenzinger:storytelling_1}--664) einige Ideen für potenzielle Datengeschichten, unter anderem, wo ein Einsatz extrem ist, wie die Bodenbeschaffenheit ist oder wie sich eine Erprobung im Vergleich zu einem tatsächlichen Einsatz verhält. Allgemein zur Entwicklung werden von Jeele Böggemann (Zeilen \lref{appendix:interview_trends_boeggemann:wunsch_1}--316, \lref{appendix:interview_trends_boeggemann:wunsch_2}--329 und \lref{appendix:interview_trends_boeggemann:wunsch_3}--339) und Benedikt Mundl (Zeilen \lref{appendix:interview_trends_mundl:wunsch_1}--199) einige kleinere Wünsche geäußert, eine Funktion zum Sortieren von Balkendiagrammen, vermehrter Einsatz von Hovereffekten zur besseren Einordnung von speziellen Punkten und der Vergleich von Zeitschrieben. Zur besseren Übersicht werden die Ergebnisse der Experteninterviews in Tabelle \ref{2:experteninterview_results} mit einer kurzen Beschreibung und der Häufigkeit der Erwähnungen dargestellt.
+
+% sind die Trends hier richtig platziert?
+In der Kategorie Aufstiege steigen die Daten über einen Zeitraum an, wie von Michael Städele in den Zeilen \lref{appendix:interview_trends_staedele:aufstiege_1}--390 und \lref{appendix:interview_trends_staedele:aufstiege_2}--449 sowie Benedikt Mundl in den Zeilen \lref{appendix:interview_trends_mundl:aufstiege_1}--116 erläutert wird.
+
+Die Kategorie Abstiege ist laut den Interviews weniger relevant, diese wurden nur von Michael Städele in den Zeilen \lref{appendix:interview_trends_staedele:abstiege_1}--390 angesprochen. Die Tatsache, dass die Abstiege nur von einem Experten erwähnt werden, wird später in den Darstellungen von Bedeutung. Bei den Abstiegen handelt es sich um den Gegenpart der Aufstiege, weil die Daten sich hier graduell nach unten entwickeln.
+
+Das nächste relevante Merkmal in den Daten sind sogenannte Peaks. Peaks können als Minima oder Maxima in den Daten in Relation zu den umliegenden Werten definiert werden. Laut den Experten Florian Zenzinger (Zeilen \lref{appendix:interview_trends_zenzinger:peaks_1}--599), Michael Städele (Zeilen \lref{appendix:interview_trends_staedele:peaks_1}--449 und Zeilen \lref{appendix:interview_trends_staedele:peaks_2}-473) und Benedikt Mundl (Zeilen \lref{appendix:interview_trends_mundl:peaks_1}--41) werden diese bei der Analyse der Daten als Erstes betrachtet. Rückschließend lässt sich davon ausgehen, dass die Peaks in der Darstellung relevanter sind als beispielsweise die Abstiege.
+
+% das oder der Offset?
+Bei einem Offset, auch Drift genannt, handelt es sich um eine Nullpunktverschiebung in den Daten. Durch den Offset kann beispielsweise eine plastische Verformung am Fahrzeugteil erkannt werden, wie Florian Zenzinger (Zeilen \lref{appendix:interview_trends_zenzinger:offset_1}--730 und \lref{appendix:interview_trends_zenzinger:offset_2}--741), Jeele Böggemann (Zeilen \lref{appendix:interview_trends_boeggemann:offset_1}--352) und Benedikt Mundl (Zeilen \lref{appendix:interview_trends_mundl:offset_1}--46) beschreiben.
+
+% bei denen die Daten zwischen maximalen und minimalen Werten rapide hin und her schwanken -> sind das minimale und maximale Werte oder einfach größere Amplituden als im restlichen Signal?
+Ein weiteres Datenmuster von Interesse sind Schwingungen, bei denen die Daten rapide oszillieren. Florian Zenzinger erwähnt Schwingungen in den Zeilen \lref{appendix:interview_trends_zenzinger:schwingungen_1}--678, \lref{appendix:interview_trends_zenzinger:schwingungen_2}--682, \lref{appendix:interview_trends_zenzinger:schwingungen_3}--696, \lref{appendix:interview_trends_zenzinger:schwingungen_4} und \lref{appendix:interview_trends_zenzinger:schwingungen_5}--708, während Michael Städele die Schwingungen in den Zeilen \lref{appendix:interview_trends_staedele:schwingungen_1}--452 beschreibt.
+
+Als häufigste Kategorie von Trends lassen sich allgemeine Abweichungen anführen. Damit sind hauptsächlich Über- oder Unterschreitungen eines bestimmten Wertebereichs gemeint. Diese Abweichungen werden von Florian Zenzinger in den Zeilen \lref{appendix:interview_trends_zenzinger:abweichungen_1}--607, von Jeele Böggemann in den Zeilen \lref{appendix:interview_trends_boeggemann:abweichungen_1}--246 und \lref{appendix:interview_trends_boeggemann:abweichungen_5}--344 sowie von Benedikt Mundl in den Zeilen \lref{appendix:interview_trends_mundl:abweichungen_1}--134 beschrieben.
+
+% deutsche Übersetzung passt nicht -> https://de.wikipedia.org/wiki/Spektrale_Leistungsdichte
+% um die Schwingungen eines Teils darzustellen -> bisschen genauer beschreiben
+Neben der Trenderkennung lassen sich aus den Interviews auch allgemeine Aussagen zu den Daten extrahieren: So wird von Florian Zenzinger in den Zeilen \lref{appendix:interview_trends_zenzinger:daten_1}--717 die Darstellungsmethode \ac{PSD} erklärt. Diese Darstellungsmethode kann laut Herrn Zenzinger bei Zeitreihen verwendet werden, um die Schwingungen eines Teils darzustellen.
+
+% DT: aus was werden die Belastungen der Komponenten berechnet
+Michael Städele (Zeilen \lref{appendix:interview_trends_staedele:daten_1}--431) und Jeele Böggemann (Zeilen \lref{appendix:interview_trends_boeggemann:daten_1}--229, \lref{appendix:interview_trends_boeggemann:daten_2}--270 und \lref{appendix:interview_trends_boeggemann:daten_3}--280) gehen genauer auf die Daten ein, die von den Sensoren geschickt werden. Dabei wird von Michael Städele auch das \ac{DT} erwähnt, mit dem rechnerisch die Beschleunigungen und Belastungen der Komponenten abgeleitet werden können.
+
+% genauer erklären, wie DMS funktionieren
+Jeele Böggemann erklärt, dass für das Messen \ac{DMS} verwendet werden. In \cite{Keil.2017} wird das Messen mit \ac{DMS} als \glqq [Erfassung der] Dehnungsmessstreifen [von] Dehnungen, die die vom Aufnehmer zu messenden mechanischen Größen im Messkörper des Aufnehmers [hervorrufen]\grqq{}, erklärt.
+
+% genauer
+Jeele Böggemann beschreibt zudem die sogenannten Targets als \glqq Wert, mit dem das Fahrzeug abgeprüft wurde\grqq{}, beschrieben werden. In \ref{appendix:general_types} in den Zeilen 51-–73 ist der zum Target passende Datentyp dargestellt.
+
+% was sind Extremwerte? -> absolutes min+max des betrachteten Signals
+% Ausreißer im Bezug auf was? -> Vergleich mit ähnlichen Messungen
+Zusätzlich zu den allgemeinen Daten werden von den Interviewten auch Aussagen über die Extremwerte und die Schädigungswerte getroffen. Die Extremwerte werden von Florian Zenzinger (Zeilen \lref{appendix:interview_trends_zenzinger:extremwerte_1}--670), von Jeele Böggemann (Zeilen \lref{appendix:interview_trends_boeggemann:extremwerte_1}--235 und \lref{appendix:interview_trends_boeggemann:extremwerte_2}--466) und von Benedikt Mundl (Zeilen \lref{appendix:interview_trends_mundl:extremwerte_1}--27 und \lref{appendix:interview_trends_mundl:extremwerte_2}--176) erwähnt. Sie sind sich einig darüber, dass es sich bei den Extremwerten um die ersten Points of Interest handelt, die sie bei der Analyse prüfen. Daraus resultierend sollen bei der späteren Darstellung von Daten mithilfe des Data-Storytellings die Extremwerte hervorgehoben werden. Besonders auf \glqq Ausreißer\grqq{} wird bei der Analyse Wert gelegt.
+
+% Schädigung gibt an, wie viel % der Lebensdauer vorbei sind, nicht wie lang
+Ebenso werden die Schädigungswerte von allen interviewten Personen als wichtig erachtet, von Florian Zenzinger in den Zeilen \lref{appendix:interview_trends_zenzinger:schädigungswerte_1}--677, Michael Städele in den Zeilen \lref{appendix:interview_trends_staedele:schädigungswerte_1}--389 und \lref{appendix:interview_trends_staedele:schädigungswerte_2}--466, Jeele Böggemann in den Zeilen \lref{appendix:interview_trends_boeggemann:schädigungswerte_1}--240 und Benedikt Mundl in den Zeilen \lref{appendix:interview_trends_mundl:schädigungswerte_1}--108, \lref{appendix:interview_trends_mundl:schädigungswerte_2}--110 und \lref{appendix:interview_trends_mundl:schädigungswerte_3}--180. Die Schädigung kann mittels eines Wertes definiert werden, der angibt, wie lange die Lebensdauer eines Bauteils ist.
+
+% etvl Rangepair + Levelcrossing kurz erklären (Kollektiv ist nur der Oberbegriff)
+Die Kategorie der Visualisierungen wird in zwei Unterkategorien eingeteilt, die Zeitreihen und die Zählmethoden. Zu den Zählmethoden zählen auch die Erwähnungen von \glqq Kollektiven\grqq{}, vollständig Lastkollektive genannt. Kollektive werden in \cite{Jacobs.2016} definiert als \glqq ein Datensatz, der die Beanspruchung eines Bauteils oder einer Maschine in einem bestimmten Zeitraum abbildet. In einem Lastkollektiv wird der Verlauf der einwirkenden Kraft oder der auftretenden Spannung über [die] Zeit bestimmt\grqq{}. Die Zählmethoden werden von Herrn Mundl in den Zeilen \lref{appendix:interview_trends_mundl:zaehlmethoden_1}--186 erwähnt und genauer als Kollektive, Rangepair und Levelcrossing definiert. Laut Jeele Böggemann (Zeilen \lref{appendix:interview_trends_boeggemann:zaehlmethoden_1}--307) ist die Darstellung der Kollektive für ihn besonders relevant.
+
+Florian Zenzinger achtet laut den Zeilen \lref{appendix:interview_trends_zenzinger:zeitreihen_1}--679 und \lref{appendix:interview_trends_zenzinger:zeitreihen_2}--696 in den Zeitreihen besonders auf starke Schwingungen. 
+
+Indessen wünscht sich Benedikt Mundl laut den Zeilen \lref{appendix:interview_trends_mundl:zeitreihen_1}--190 eine Möglichkeit, mehrere Zeitschriebe miteinander zu vergleichen.
+
+% umformulieren ("Plausibilisierung heißt, dass die Daten plausibel sind")
+Des Weiteren gibt es die Hauptkategorie Plausibilisierung, bei der anhand von automatischer Erkennung direkt überprüft werden sollte, ob die Daten  realistisch und plausibel sind. Die Plausibilisierung allgemein wird von Florian Zenzinger (Zeilen \lref{appendix:interview_trends_zenzinger:plausibilisierung_1}--598) und von Benedikt Mundl (Zeilen \lref{appendix:interview_trends_mundl:plausibilisierung_1}--31) erwähnt. Im Allgemeinen ist bei der Plausibilisierung nur schwierig automatisch zu bestimmen, wann ein Wert realistisch ist, da sich die Ingenieure dabei stark auf ihre Erfahrung verlassen. Aber wenn beispielsweise ein Signal über längere Zeit null ist, obwohl sich das Fahrzeug  bewegt, ist die Wahrscheinlichkeit hoch, dass es sich um einen Defekt oder Messfehler handelt. Hieraus resultiert eine weitere Unterkategorie in der Plausibilisierung: Defekte und Messfehler. Florian Zenzinger (Zeilen \lref{appendix:interview_trends_zenzinger:defekte_1}--616), Michael Städele (Zeilen \lref{appendix:interview_trends_staedele:defekte_1}--445), Jeele Böggemann (Zeilen \lref{appendix:interview_trends_boeggemann:defekte_1}--237) und Benedikt Mundl (Zeilen \lref{appendix:interview_trends_mundl:defekte_1}, \lref{appendix:interview_trends_mundl:defekte_2}--28, \lref{appendix:interview_trends_mundl:defekte_3}--116 und \lref{appendix:interview_trends_mundl:defekte_4}--125) erwähnen allesamt Messfehler oder Defekte an den Sensoren. Solche Fehler erkennt man laut den Interviewten häufig an Peaks, Ausreißern oder an Nullwerten, die von den Sensoren gesendet werden. Auch deswegen sind die Peaks in der Trenderkennung  relevant. Auch bei individuellen Fehlern des Fahrers kann es zu Problemen bei der Plausibilisierung kommen. Jeele Böggemann (Zeilen \lref{appendix:interview_trends_boeggemann:fahrer_1}--274) und Benedikt Mundl (Zeilen \lref{appendix:interview_trends_mundl:fahrer_1}--98 und \lref{appendix:interview_trends_mundl:fahrer_2}--125) sprechen dieses Thema an. Eine Voraussetzung der Messungen ist im Speziellen bei der Dauerlauferprobung ist, die Strecken immer gleich abzufahren. Denn wenn ein Fahrer beispielsweise den Bordstein anfährt oder von der Strecke abkommt, können die Messungen abweichen. Auch hier ist es schwierig, automatisch zu erkennen, wann so ein Fehler vorliegt, da auch das auf der Erfahrung der auswertenden Ingenieure basiert.
+
+% was sind die geplanten Unterseiten? auch aus dem teil eine extra subsection machen
+Zuletzt wurden die interviewten Ingenieure zu den bereits geplanten Unterseiten für die Webseite befragt. Das Dashboard soll laut Florian Zenzinger (Zeilen \lref{appendix:interview_trends_zenzinger:dashboard_1}--659) und Benedikt Mundl (Zeilen \lref{appendix:interview_trends_mundl:dashboard_1}--72) zunächst als Einstieg in die Datenbasis gesehen werden, mit einer Übersicht dazu, welche Einsatzorte und Strecken es in den vorhandenen Daten gibt und welche Fahrzeuge diese abgefahren sind. Zu der Unterseite mit den Vergleichen der Erprobungen und den realen Einsätzen wird von Michael Städele (Zeilen \lref{appendix:interview_trends_staedele:vergleich_1}--551) und Benedikt Mundl (Zeilen \lref{appendix:interview_trends_mundl:vergleich_1}--158 und \lref{appendix:interview_trends_mundl:vergleich_2}--167) angemerkt, dass es sich hier um die wichtigste Unterseite handelt. Der Grund liegt darin, dass durch die Vergleiche berechnet wird, wie ein Fahrzeug voraussichtlich in einem, in der Zukunft liegenden, Einsatz beschädigt wird. Auf der Unterseite der Dauerlauferprobung werden die Daten der Fahrzeuge auf festgelegten Strecken von denselben Fahrern über lange Zeit erprobt. Gleichzeitig werden die Vergleichsdaten gesammelt, die dann auf der Vergleichsseite verwendet werden. Dies wird von Florian Zenzinger (Zeilen \lref{appendix:interview_trends_zenzinger:dauerlauferprobung_1}--646), Michael Städele (Zeilen \lref{appendix:interview_trends_staedele:dauerlauferprobung_1}--511 und \lref{appendix:interview_trends_staedele:dauerlauferprobung_2}--539), Jeele Böggemann (Zeilen \lref{appendix:interview_trends_boeggemann:dauerlauferprobung_1}--299) sowie Benedikt Mundl (Zeilen \lref{appendix:interview_trends_mundl:dauerlauferprobung_1}--80, \lref{appendix:interview_trends_mundl:dauerlauferprobung_2}--105, \lref{appendix:interview_trends_mundl:dauerlauferprobung_3}--108 und \lref{appendix:interview_trends_mundl:dauerlauferprobung_4}--144) übereinstimmend bestätigt.
+
+Zum Data-Storytelling haben Michael Städele (Zeilen \lref{appendix:interview_trends_staedele:storytelling_1}--402, \lref{appendix:interview_trends_staedele:storytelling_2}--412 und \lref{appendix:interview_trends_staedele:storytelling_3}--557) und Florian Zenzinger (Zeilen \lref{appendix:interview_trends_zenzinger:storytelling_1}--664) einige Ideen für potenzielle Datengeschichten, unter anderem, wo ein Einsatz extrem ist, wie die Bodenbeschaffenheit ist oder wie sich eine Erprobung im Vergleich zu einem tatsächlichen Einsatz verhält.
+
+% das könnte man weglassen
+Allgemein zur Entwicklung werden von Jeele Böggemann (Zeilen \lref{appendix:interview_trends_boeggemann:wunsch_1}--316, \lref{appendix:interview_trends_boeggemann:wunsch_2}--329 und \lref{appendix:interview_trends_boeggemann:wunsch_3}--339) und Benedikt Mundl (Zeilen \lref{appendix:interview_trends_mundl:wunsch_1}--199) einige kleinere Wünsche geäußert, eine Funktion zum Sortieren von Balkendiagrammen, vermehrter Einsatz von Hovereffekten zur besseren Einordnung von speziellen Punkten und der Vergleich von Zeitschrieben.
+
+% die Tabelle wäre weiter oben sinnvoller
+Zur besseren Übersicht werden die Ergebnisse der Experteninterviews in Tabelle \ref{2:experteninterview_results} mit einer kurzen Beschreibung und der Häufigkeit der Erwähnungen dargestellt.
 \newpage
 \input{chapters/documents/experteninterview_ergebnisse}
 \newpage
 
 \section{Regeln zum Erkennen von Trends in den Zeitreihendaten}
-Um die Erkennung der Trends in den Zeitreihen dynamisch ausführen zu können, müssen für jede Art der Erkennung Regeln festgelegt werden, die dann durch die Implementierung die Trends erkennen. Die Implementierung ist in \ref{appendix:trend-detection-code} zu finden und in TypeScript implementiert, um für den Benutzer dynamisch anpassbar zu sein. Thematisch wird die Trenderkennung für Zeitreihen (siehe Datentyp \texttt{TimeSeries} \ref{appendix:graph_types}) implementiert, da diese die Auswirkungen der Kräfte auf verschiedene Komponenten über die Dauer der Messung anzeigen. Die Zeitreihen setzen sich aus dem Nummern-Array \texttt{values} und einer Frequenz, in der die Werte auftreten, zusammen. Die Frequenz wird mit der Anzahl der Werte verrechnet, um die x-Werte zu erzeugen. Die y-Werte bildet der \texttt{values}-Array. Dadurch, dass die Werte der Zeitreihen immer in der gleichen Frequenz auftreten, ist gegeben, dass die einzelnen Datenpunkte stets die gleiche Distanz zueinander haben.
+% TODO: was heißt "dynamisch" an der Stelle? ohne Nutzereingaben?
+Um die Erkennung der Trends in den Zeitreihen dynamisch ausführen zu können, müssen für jede Art der Erkennung Regeln festgelegt werden, die dann durch die Implementierung die Trends erkennen.
+
+% in C -> "in Appendix C" oder so (könnte im Satzkontext sonst heißen, dass das mit der Programmiersprache C schon irgendwo implementiert war)
+% Absatz umschreiben, z.B. immer die gleiche Distanz zueinander -> äquidistant
+Die Implementierung ist in \ref{appendix:trend-detection-code} zu finden und in TypeScript implementiert, um für den Benutzer dynamisch anpassbar zu sein. Thematisch wird die Trenderkennung für Zeitreihen (siehe Datentyp \texttt{TimeSeries} \ref{appendix:graph_types}) implementiert, da diese die Auswirkungen der Kräfte auf verschiedene Komponenten über die Dauer der Messung anzeigen. Die Zeitreihen setzen sich aus dem Nummern-Array \texttt{values} und einer Frequenz, in der die Werte auftreten, zusammen. Die Frequenz wird mit der Anzahl der Werte verrechnet, um die x-Werte zu erzeugen. Die y-Werte bildet der \texttt{values}-Array. Dadurch, dass die Werte der Zeitreihen immer in der gleichen Frequenz auftreten, ist gegeben, dass die einzelnen Datenpunkte stets die gleiche Distanz zueinander haben.
+
 \subsection{Allgemeine Regeln und Funktionen}\label{2:general_implementations}
 Für die Berechnungen werden viele Funktionen mehrfach benötigt. Um Code-Wiederholungen zu vermeiden, bessere Lesbarkeit zu ermöglichen und das Testen der Funktionen zu erleichtern, werden hilfreiche Mikrofunktionen erstellt, die in mehreren der Trenderkennungsfunktionen benötigt und genutzt werden. Im Folgenden werden diese kurz erklärt und zusammenfassend dargestellt:
 \begin{description}
 
-\item[\texttt{average}] \hfill \\\\
-Die Berechnung des arithmetischen Mittels, dargestellt in \ref{appendix:trend-detection-code}[Zeilen 7-–9]. Eine einfache Funktion, die die Datenpunkte annimmt, diese so anpasst, dass alle Werte miteinander addiert werden, und zum Schluss die Summe durch die Anzahl der Werte in dem entsprechenden Array teilt. Die Funktion basiert auf der folgenden mathematischen Formel \ref{eqn:average} aus \cite{Papula.2017}:
+% unterschiedlich formatierte Verweise auf den Source Code -> z.B. (Implementierung s. Appendix C, Z. 7-9)
+% Parameter mit angeben, sonst muss man in den Appendix blättern, um die Beschreibung nachzuvollziehen
+
+\item[\texttt{average}] \hfill
+
+Das arithmetische Mittel eines Arrays (\ref{appendix:trend-detection-code}[Zeilen 7-–9]) wird berechnet, indem die Summe aller übergebenen Datenpunkte durch die Länge des Arrays geteilt wird. Die Funktion basiert auf der mathematischen Formel \ref{eqn:average} aus \cite{Papula.2017}:
 \begin{equation}
 \label{eqn:average}
          average(x_t)=\frac{x_1+x_2+...+x_n}{n}=\frac{\sum\limits_{i=1}^nx_t}{n} 
 \end{equation}
 
+% das heißt nicht height, sondern range
 \item[\texttt{getPercentageOfHeight}] \hfill \\\\
 Diese Funktion (\ref{appendix:trend-detection-code} Zeilen 18-–22) berechnet den maximalen Wertebereich des Arrays und errechnet anhand einer eingegebenen Prozentzahl die prozentuale Höhe. Hierfür wird der in JavaScript, und somit auch TypeScript, vorhandene Built-in Namespace \texttt{Math} \cite{MDNcontributors.} verwendet, um die maximalen und minimalen Werte des Arrays auszugeben. Dadurch ist die Funktion einfach zu testen und performant. In der folgenden Formel \ref{eqn:height} wird der Rechenweg wiedergegeben, wobei es sich bei der Variable \texttt{p} um die eingegebene Prozentzahl handelt.\\ 
 \begin{equation}
@@ -98,7 +242,7 @@ Diese Funktion (\ref{appendix:trend-detection-code} Zeilen 18-–22) berechnet d
 \end{split}
 \end{equation}
 
-
+% der Name passt hier nicht zu dem, was berechnet wird
 \item[\texttt{getPercentageOfDistanceBetweenMarkers}] \hfill \\\\
 Ähnlich wie auch bei \texttt{getPercentageOfHeight} wird mit dieser Funktion (\ref{appendix:trend-detection-code} Zeilen 31-–36) berechnet, wie viele Marker wie viel Prozent der gesamten Länge der Zeitreihe entsprechen. Da alle Datenpunkte gleich weit voneinander entfernt sind, lässt sich anhand des Ergebnisses später einfach durch Einsetzen in die Frequenzberechnung erkennen, wo sich die Marker befinden. Daraus bildet sich die mathematische Formel \ref{eqn:distance}.\\
 \begin{equation}
@@ -129,6 +273,7 @@ Mathematisch wird der gleitende Durchschnitt ungerader Ordnung von \cite{Bosch.2
 Dabei steht $m$ für das \texttt{window}, das für den gleitenden Durchschnitt festgelegt wurde, und $x_t$ für die Zeitreihe.
 Da bei der Erstellung des gleitenden Durchschnitts ungerader Ordnung jeweils am Anfang und am Ende der Zeitreihe \[k=\frac{m}{2}\] herausfallen, werden diese Werte bei der Implementation am Anfang der Zeitreihe mit \[\frac{1}{m+1}(x_{t}+x_{t+1}+...+x_{t+m})\] und am Ende der Zeitreihe mit  \[\frac{1}{m+1}(x_{t-m}+x_{t-m+1}+...+x_t)\] ergänzt. \\\\
 
+% passt die formel hier? xi in 1,2,..n
 \item[\texttt{findLocalExtreme}]\hfill \\\\
 Die Funktion (\ref{appendix:trend-detection-code} Zeilen 81-–99) findet lokale Minima und lokale Maxima der Zeitreihe und gibt diese aus. Die Funktion basiert auf der Implementation von \cite{SamuelProll.2022} und wurde hier so weit abgeändert, dass damit nicht nur Maxima, sondern auch Minima gefunden werden können (Zeilen 86, 91–-97). Es wurde eine boolesche Variable \texttt{findMaxima} hinzugefügt, die zwischen der Suche nach Minima und Maxima unterscheidet. Die Funktion iteriert durch alle Punkte des Wert-Arrays und vergleicht die direkten Nachbarn mit dem aktuellen Punkt. Bei den Maxima müssen der linke und rechte Nachbar jeweils niedriger sein als der aktuelle Punkt. Bei den Minima ist diese Bedingung genau umgekehrt, beide Nachbarn müssen also höher sein als der aktuelle Punkt. In der folgenden Formel \ref{eqn:minmax} werden die Bedingungen mathematisch formuliert.
 \begin{equation}
@@ -143,6 +288,7 @@ Die Funktion (\ref{appendix:trend-detection-code} Zeilen 81-–99) findet lokale
 \end{equation}
 \end{description}
 
+% TODO: erklärung vereinfachen? ist ja im prinzip nur gleitender durchschnitt -> streng monotone Bereiche suchen, deren range einen schwellwert überschreitet
 \subsection{Aufstiege und Abstiege}
 \label{subsection:risesAndFalls}
 Die Berechnungen für die Auf- und Abstiege funktionieren ähnlich zueinander. Der entsprechende Code ist in \ref{appendix:trend-detection-code:aufstiege} zu sehen. Zur Vermeidung von Wiederholungen wird nur die Funktion für die Aufstiege erklärt, da die Funktion für die Abstiege sich allein durch die Bedingungen in den If-Abfragen unterscheidet. Für die Funktion werden ausschließlich die y-Werte benötigt. Die Funktion kann aber, falls gewünscht (für das Data-Storytelling), mit Benutzereingaben erweitert werden. Aus Performancegründen wird ebenso der gleitende Durchschnitt als Variable in die Funktion mit übergeben, da der gleitende Durchschnitt von mehreren Funktionen der Trenderkennung genutzt wird und so nur einmal berechnet werden muss. Die Funktion liefert einen Array aus Anfangs- und Endpunkten der Anstiege. Wichtig für die Erkennung der Aufstiege sind folgende Variablen, die auch durch den Nutzer manuell eingegeben werden können:
@@ -198,8 +344,10 @@ In Abbildung \ref{fig:peaks} wird die Extremwerterkennung für Minima und Maxima
 \end{figure}
 
 
+% implementation oder implementierung
+% sowas wie dass slice() verwendet wird, kann man streichen, das ist selbstverständlich. lenkt nur davon ab was tatsächlich passiert
 \subsection{Offsets und Drifts}
-Wie in den Interviews (Kapitel \ref{2:experteninterview_results}) erklärt wird, handelt es sich bei Offsets und Drifts um ein Phänomen, das auftritt, wenn Bauteile plastisch verformt werden. Von den Experten wird bestätigt, dass das Offset und auch Drifts dann erkennbar werden, wenn der Durchschnittswert am Anfang und der Durchschnittswert am Ende eines Graphen drastisch divergieren. Offset und Drift unterscheiden sich durch die Art der Veränderung am Durchschnittswert. Bei Drifts handelt es sich um eine Verschiebung über die Zeit, bei Offsets ist die Verschiebung eher ruckartig. In der Implementation der Funktion zur Erkennung des Offsets in \ref{appendix:trend-detection-code:offsets} lässt sich in den Zeilen 2 und 3 erkennen, dass die gelieferten Daten jeweils in eine vordere Hälfte und eine hintere Hälfte eingeteilt werden und danach die allgemeine Funktion zum Berechnen des Durchschnitts (siehe \texttt{average} \ref{2:general_implementations}) aufgerufen wird. Hierzu wird die \texttt{Array.prototype.slice()}-Funktion von klassischem JavaScript verwendet \cite{MDNcontributors.2020}. In Zeile 6 wird der Pufferwert rechnerisch bestimmt, der gemeinsam mit dem Durchschnittswert des ersten Arrays überschritten  sein muss, um die Offset-Warnung bei kleinen Unterscheidungen zu vermeiden. Schließlich tritt das Offset nur bei drastischen Unterschieden auf. Der Pufferwert wird durch eine Erhöhung von 10\,\% und die allgemeine Funktion von \texttt{getPercentageOfHeight} aus \ref{2:general_implementations} festgelegt. Wenn die Graphen später mit Data-Storytelling überarbeitet werden, lässt sich dieser hart codierte Wert noch durch eine Benutzereingabe ersetzen. Abschließend wird geprüft, ob die Summe des Durchschnitts der ersten Hälfte und des Pufferwerts kleiner ist als die Summe des Durchschnitts der zweiten Hälfte (Zeile 7). Wenn dies zutrifft, wird eine plotly.js-Annotation von der Funktion zurückgegeben, die als Fehlermeldung abgebildet wird.
+Wie in den Interviews (Kapitel \ref{2:experteninterview_results}) erklärt wird, handelt es sich bei Offsets und Drifts um Phänomene, die auftreten, wenn Bauteile plastisch verformt werden. Von den Experten wird bestätigt, dass das Offset und auch Drifts dann erkennbar werden, wenn der Durchschnittswert am Anfang und der Durchschnittswert am Ende eines Graphen drastisch divergieren. Offset und Drift unterscheiden sich durch die Art der Veränderung am Durchschnittswert. Bei Drifts handelt es sich um eine Verschiebung über die Zeit, bei Offsets ist die Verschiebung eher ruckartig. In der Implementation der Funktion zur Erkennung des Offsets in \ref{appendix:trend-detection-code:offsets} lässt sich in den Zeilen 2 und 3 erkennen, dass die gelieferten Daten jeweils in eine vordere Hälfte und eine hintere Hälfte eingeteilt werden und danach die allgemeine Funktion zum Berechnen des Durchschnitts (siehe \texttt{average} \ref{2:general_implementations}) aufgerufen wird. Hierzu wird die \texttt{Array.prototype.slice()}-Funktion von klassischem JavaScript verwendet \cite{MDNcontributors.2020}. In Zeile 6 wird der Pufferwert rechnerisch bestimmt, der gemeinsam mit dem Durchschnittswert des ersten Arrays überschritten  sein muss, um die Offset-Warnung bei kleinen Unterscheidungen zu vermeiden. Schließlich tritt das Offset nur bei drastischen Unterschieden auf. Der Pufferwert wird durch eine Erhöhung von 10\,\% und die allgemeine Funktion von \texttt{getPercentageOfHeight} aus \ref{2:general_implementations} festgelegt. Wenn die Graphen später mit Data-Storytelling überarbeitet werden, lässt sich dieser hart codierte Wert noch durch eine Benutzereingabe ersetzen. Abschließend wird geprüft, ob die Summe des Durchschnitts der ersten Hälfte und des Pufferwerts kleiner ist als die Summe des Durchschnitts der zweiten Hälfte (Zeile 7). Wenn dies zutrifft, wird eine plotly.js-Annotation von der Funktion zurückgegeben, die als Fehlermeldung abgebildet wird.
 
 \subsection{Schwingungen}
 Sollten Minima und Maxima direkt aufeinanderfolgen, wird das in dieser Arbeit als Schwingung definiert. Die passende Funktion zu der Schwingungserkennung ist in \ref{appendix:trend-detection-code:schwingungen} nachzuvollziehen. Auch die Schwingungserkennung ist durch Eingaben anpassbar:
@@ -223,6 +371,8 @@ Eine Abweichung wurde von den Experten (siehe Kapitel \ref{2:experteninterview_r
 \caption{Abweichungen}
 \label{fig:deviations}
 \end{figure}
+
+% erst kurz beschreiben, was die Datenbasis überhaupt beinhaltet, z.b. weiß man beim lesen noch nicht, dass es eine fahrzeugkarte gibt und wie man fahrzeuge auswählt
 \section{Anwendung des Data-Storytelling}
 Im Folgenden werden die Methoden aus \ref{sec:methoden} auf die tatsächlichen Graphen angewandt und implementiert.
 \subsection{Prozentuale Schädigung zum groben Überblick}\label{section:Prozentuale_Schädigung}
@@ -327,6 +477,7 @@ Im Sinne des Data-Storytelling-Punkts „Ordnung schaffen“ ist die bereits vor
 Um die Aufmerksamkeit des Benutzers auf die einzelnen Raumrichtungen zu lenken, werden Annotations erstellt, die den im Punkt „Ordnung schaffen“ entfernten Titel ersetzen. In der Legende wird der erzeugte Name des Fingerprints dargestellt, der sich aus Fahrzeugname, Erprobungsbahn, gefahrener Geschwindigkeit und Laufleistung zusammensetzt. Dadurch sieht man auf einen Blick, welche Parameter für die Linie wichtig sind. Ansonsten sollen die Linien farbig gekennzeichnet werden. Da es sich um bis zu fünf Linien handeln kann und diese nur durch ihre Farben zu unterscheiden sind, werden die klassischen Farben Rot, Grün, Blau, Schwarz und Grau gewählt. Wird ein einzelner Fingerprint dargestellt, soll dieser im gleichen Grau gefärbt werden wie die Zeitreihen \ref{sec:timeseries}.\\\\
 5. Geschichte erzählen:\\
 Die Fingerprints sind ein Analysewerkzeug, bei dem es relevant ist, wie nah die gemessenen Daten an der Zahl Eins sind, also wie nah die ausgewählte Messstelle sich an 100\,\% Erprobung befindet. Dazu wird das Grid bei der Zahl Eins hervorgehoben. Dadurch kann der Benutzer direkt erkennen, wie nah sich die Messstelle der Erprobung nähert, und somit auch abschätzen, wann diese Messstelle potenziell ausgetauscht oder gewartet werden soll. Mit diesen Anpassungen wird die Fingerprintdarstellung in \ref{fig:fingerprints_finished} abgebildet.
+
 \begin{figure}[!h]
     \centering
     \includegraphics[width=1\linewidth]{gfx/fingerprints_finished.png}
@@ -334,6 +485,7 @@ Die Fingerprints sind ein Analysewerkzeug, bei dem es relevant ist, wie nah die 
     \label{fig:fingerprints_finished}
 \end{figure}
 \subsection{Dauerlauferprobung}
+
 \label{section:dauerlauferprobung}
 1. Kontext verstehen:\\
 Die Dauerlauferprobung soll ein Graph sein, der die Schädigung über die Zeit (oder die bereits gefahrenen Kilometer) der Erprobung darstellt, zudem die Grenze, ab der die betrachtete Messstelle oder das Gesamtfahrzeug nicht mehr erprobt ist. Die Dauerlauferprobung ist also eine Ansammlung von Werten über einen Zeitraum und dazu eine spezifische Grenze. Es gibt für die Dauerlauferprobung zwei verschiedene Anzeigen: eine, die in einem Graphen die gesamte kumulierte Schädigung anzeigt, und eine, die sich auf die unterschiedlichen Raumrichtungen aX, aY und aZ beschränkt. Im Folgenden wird der Graph für die gesamte kumulierte Schädigung betrachtet. Es soll möglich sein, bei der x-Achse umzustellen, ob die Zeit betrachtet wird oder die gefahrenen Kilometer. Insgesamt sind in einer Dauerlauferprobung bei diesem Anwendungsfall immer 16\,000\,km zu fahren.\\\\
@@ -405,11 +557,11 @@ Der Graph erzählt die Geschichte, wie die verschiedenen Messungen auf den Messs
 % 1. Kontext verstehen:\\
 % Kollektive sind eine feste Größe in der Betriebsfestigkeit \cite{Gotz.2020}. Bei den Kollektiven werden laut \cite{PatrickPfeiffer.17.10.2022} lediglich die höchsten Ausschläge des Messsignals betrachtet. Dabei werden verschiedene Zählmethoden verwendet. In diesem Use Case gibt es die folgenden Darstellungen:
 % \begin{description}
-%   \item[Level Crossing (deut. Klassengrenzenüberschreitungszählung)] \hfill \\ 
+%   \item[Level Crossing (dt. Klassengrenzenüberschreitungszählung)] \hfill \\ 
 %   Das Level Crossing Verfahren \glqq beschreibt die Häufigkeit, mit welcher die Last-Zeit-Funktion [(Zeitreihe oder Messung)] zuvor definierte Klassen überschreitet. [Deswegen] kann ein schneller Überblick über gemessene Minima und Maxima gewonnen werden\grqq{} \cite{PatrickPfeiffer.17.10.2022} \cite{TaylanKaplan.01.04.2015}.
-%   \item[Range Pair (deut. Bereichspaarzählung)] \hfill \\ 
+%   \item[Range Pair (dt. Bereichspaarzählung)] \hfill \\ 
 %   Bei der Range Pair Zählung werden \glqq von Minima aufwärts und von Maxima abwärts Spannen erfasst\grqq{} \cite{BenediktMundl.25.08.2010}. Bei dieser Darstellung werden die Amplituden und Häufigkeiten erfasst und dargestellt \cite{TaylanKaplan.01.04.2015}. 
-%   \item[Time at Level (deut. Verweildauerzählung)] \hfill \\ 
+%   \item[Time at Level (dt. Verweildauerzählung)] \hfill \\ 
 %   Laut \cite{PatrickPfeiffer.17.10.2022} wird die Time at Level Zählung \glqq vorwiegend für die Analyse von Fahr- oder Maschinenzuständen angwandt\grqq{}. Dabei wird die Dauer, in der sich das Lastgeschehen in den jeweiligen Klassen aufhält gezählt \cite{PatrickPfeiffer.17.10.2022}.
 % \end{description}
 % \noindent
